@@ -1,0 +1,1103 @@
+<!-- #include virtual="/include/constants/database.asa"-->
+<!--#include file="times.asa"-->
+
+
+<style type="text/css">
+		
+	.DayBar {background-color: #CC0000;}	
+	.CurrentDay {background-color: #CCCCFF;}
+	.SmallCurrentDay {background-color: #330099;}
+	.AllDayEvent {background-color: #BDF8DD;}
+	.ViewTab {background-color: #b0c4de;}
+	.MonthBar {background-color: white;}
+	.SelectedDay {background-color: #BDF8DD;}
+	.ExtraDays {background-color: #dddddd;}
+	.DateText {color: #CC0000;}
+	.borders {background-color: #444444;}
+	
+	.TextField {font-family: "Trebuchet MS"; border-width: 1; border-style: solid}
+	.TextAreaField {font-family: "Trebuchet MS"; border-width: 1; border-style: solid}
+	.ComboField {font-family: "Trebuchet MS"; border-width: 1; border-style: solid}
+
+	td{
+		font-family:arial;
+	}
+	td.daysOfWeekBar{
+		font-family:arial;
+		background-color: #330099;
+	}
+		
+	a.date{
+		color: #330099;
+		font-family:arial;
+		text-decoration:underline;
+	}
+	a.date:hover{
+		color: #330099;
+		font-family:arial;
+		text-decoration:none;
+	}
+	a.Todaydate{
+		color: #CC0000;
+		font-family:arial;
+		text-decoration:underline;
+	}
+	a.Todaydate:hover{
+		color: #CC0000;
+		font-family:arial;
+		text-decoration:none;
+	}
+	
+	a.updateLinks{
+		color: blue;
+		font-family:arial;
+		text-decoration:underline;
+	}
+	a.updateLinks:hover{
+		color: blue;
+		font-family:arial;
+		text-decoration:none;
+	}
+	
+	a.eventLinks{
+		color: blue;
+		font-family:arial;
+		text-decoration:underline;
+	}
+	a.eventLinks:hover{
+		color: blue;
+		font-family:arial;
+		text-decoration:none;
+	}
+	
+	a.smallCalendarDate{
+		color: #C00002;
+		font-family:arial;
+		text-decoration:none;
+	}
+	a.smallCalendarDate:hover{
+		color: #C00002;
+		font-family:arial;
+		text-decoration:underline;
+	}
+	a.smallCalendarCurrentDate{
+		color: white;
+		font-family:arial;
+		text-decoration:none;
+	}
+	a.smallCalendarCurrentDate:hover{
+		color: white;
+		font-family:arial;
+		text-decoration:underline;
+	}
+	
+	a.Black{
+		color: Black;
+		}
+	a.Toolbar{
+		color: White;
+		font-family:arial;
+		text-decoration:none;		
+		}
+	a.Toolbar:hover{
+		color: White;
+		font-family:arial;
+		text-decoration:underline;		
+		}			
+	a.tabLink{
+		color: white;
+		font-family:arial;
+		text-decoration:none;		
+	}
+	a.tabLink:hover{
+		color: whites;
+		font-family:arial;
+		text-decoration:underline;		
+	}
+	
+		
+</style>
+
+<script language="JavaScript">
+//This function deletes records from current form
+	function Delete() {
+	if (confirm("Are you sure that you want to delete these items?")){
+		document.CalendarForm.submit() ;
+	}
+	
+	}
+	
+		
+</script>
+
+<script language="JavaScript">
+//File must enter a Title.
+	function Verify() {
+		
+		if(document.all.Title.value == "") {
+			alert("You must enter a Title before continuing.");
+		}
+		else {
+			document.CalendarForm.submit()
+		}
+		
+	}
+</script>		
+<%'This function opens up the printable calendar in the new browser
+'With Response
+'
+'	.Write "<script language=""javascript"">" & vbCrLf
+'	 
+'	.Write "	function printMonth(){"  & vbCrLf
+'	If Request("Date")<>"" Then
+'	.Write "		window.open(""/news/calendars/printable.asp?Name=" & Server.URLEncode(Name) & "&Node_ID=" & Node_ID & "&Date=" & Request("Date") & "&view=printMonth"", ""new"", ""titlebar=no,scrollbars=yes,status=no,width=500,height=600,location=no,directories=no"")" & vbCrLf
+'	Else
+'	.Write "		window.open(""/news/calendars/printable.asp?Name=" & Server.URLEncode(Name) & "&Node_ID=" & Node_ID & "&Date=" & Date() & "&view=printMonth"", ""new"", ""titlebar=no,scrollbars=yes,status=no,width=500,height=600,location=no,directories=no"")" & vbCrLf
+'	End If	
+'	.Write "		}" & vbCrLf
+'	.Write "</script>" & vbCrLf & vbCrLf
+'End With
+%>
+
+<%
+'With Response
+
+'	.Write "<script language=""javascript"">" & vbCrLf
+'	 
+'	.Write "	function printYear(){" & vbCrLf
+'	
+'	If Request("Date")<>"" Then
+'	.Write "		window.open(""/news/calendars/printable.asp?Name=" & Server.URLEncode(Name) & "&Node_ID=" & Node_ID & "&Date=" & Request("Date") & "&view=printYear"", ""new"", ""titlebar=no,scrollbars=yes,status=no,width=500,height=600,location=no,directories=no"")" & vbCrLf
+'	Else
+'	.Write "		window.open(""/news/calendars/printable.asp?Name=" & Server.URLEncode(Name) & "&Node_ID=" & Node_ID & "&Date=" & Date() & "&view=printYear"", ""new"", ""titlebar=no,scrollbars=yes,status=no,width=500,height=600,location=no,directories=no"")" & vbCrLf
+'	End If	
+'	.Write "		}" & vbCrLf
+'	.Write "</script>" & vbCrLf & vbCrLf
+'End With
+
+
+Set rsCalendar = Server.CreateObject ("ADODB.RecordSet")
+
+'*************CONSTANTS******************
+bgColor = Array("dedede", "efefef")
+Dim tabsOutside, inactiveTab, activeTab, fontSize
+
+tabsOutside = "white"
+inactiveTab = "#330099"
+activeTab = "white"
+fontSize = "2"
+
+
+'****************************************
+						
+'The following functions take a date as an argument and return a modified date.  The date is modified as each
+'function name implies.
+Public Function SubtractOneYear(dDate)
+	SubtractOneYear = DateAdd("yyyy", -1, dDate)
+End Function
+
+Function AddOneYear(dDate)
+	AddOneYear = DateAdd("yyyy", 1, dDate)
+End Function
+
+Public Function SubtractOneMonth(dDate)
+	SubtractOneMonth = DateAdd("m", -1, dDate)
+End Function
+
+Function AddOneMonth(dDate)
+	AddOneMonth = DateAdd("m", 1, dDate)
+End Function
+
+Public Function SubtractOneDay(dDate)
+	SubtractOneDay = DateAdd("d", -1, dDate)
+End Function
+
+Function AddOneDay(dDate)
+	AddOneDay = DateAdd("d", 1, dDate)
+End Function
+
+'takes a numeric value representing an hour as an argument and returns a numeric value appended with an AM or PM
+Function hourFunc(xHour)
+	Dim mHour
+	If xHour > 11 Then
+		mHour = CStr(xHour - 12)
+		endStr = " PM"
+	Else
+		mHour = xHour
+		endStr = " AM"
+	End If
+	
+	If mHour = 0 Then
+		mHour = "12"
+	End If
+	
+	hourFunc = mHour & endStr
+End Function
+
+'This function takes a date as an argument and returns the number of days in that month
+'Leap years are accounted for
+Public Function daysInMonth(dDate)
+	Select Case Month(dDate)
+		Case 1, 3, 5, 7, 8, 10, 12
+			daysInMonth = 31
+		Case 4, 6, 9, 11
+			daysInMonth = 30
+		Case 2
+			If Year(dDate) mod 4 = 0 Then 'checking for leap year
+				daysInMonth = 29
+			Else
+				daysInMonth = 28
+			End If
+	End Select
+End Function%>
+
+<%'Takes a date as an argument and builds a small month view calendar
+Public Sub makeSmallMonth(dDate)%>
+
+			<table border="0" width="100%">
+				<tr>
+				    <td class="borders">
+					  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td colspan="7" align="center" bgcolor="white"><font color="#330099" size="2"><a href="<%Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=SubtractOneMonth(dDate)%>&amp;Node_ID=<%=Node_ID%>"><img src="/images/calendar/7arrowleft.gif" border="0" WIDTH="7" HEIGHT="7"></a>&nbsp;&nbsp;<%=MonthName(Month(dDate))%>&nbsp;<%=DatePart("yyyy",dDate)%>&nbsp;&nbsp;<a href="<%Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=AddOneMonth(dDate)%>&amp;Node_ID=<%=Node_ID%>"><img src="/images/calendar/7arrowRight.gif" border="0" WIDTH="7" HEIGHT="7"></a></font></td>
+							</tr>
+							<tr>
+								<td class="DayBar" align="center"><font color="white" size="1">S</font></td>
+								<td class="DayBar" align="center"><font color="white" size="1">M</font></td>
+								<td class="DayBar" align="center"><font color="white" size="1">T</font></td>
+								<td class="DayBar" align="center"><font color="white" size="1">W</font></td>
+								<td class="DayBar" align="center"><font color="white" size="1">T</font></td>
+								<td class="DayBar" align="center"><font color="white" size="1">F</font></td>
+								<td class="DayBar" align="center"><font color="white" size="1">S</font></td>
+							</tr>
+							<%
+							'Determine the day of the week the month starts on
+							mstDate = WeekDay(CDate(Month(dDate) & "/1/" & Year(dDate))) 
+							'This is the date that we start printing on the calendar
+							eDate = DateAdd("d", -mstDate + 1,CDate(Month(dDate) & "/1/" & Year(dDate)))
+							
+							'Determine how many rows in the calendar we need based on the number of days in the month
+							If (daysInMonth(dDate) + mstDate - 1)/7  > 5 Then
+								n = 6
+							ElseIf (daysInMonth(dDate) + mstDate - 1)/7  > 4 Then
+								n = 5
+							Else
+								n = 4
+							End If
+											
+							For x = 1 to n%>
+								<tr>
+								<%For y = 1 to 7
+								  If eDate = Date() Then%>
+									<td class="SmallCurrentDay" valign="top" align="center">	
+								<%ElseIf Month(eDate) = Month(dDate) Then%>
+									<td bgcolor="White" valign="top" align="center">
+								<%Else%>
+									<td class="ExtraDays" valign="top" align="center">
+								<%End If%>
+									<font size="1"><a <%If eDate = Date() Then%>class="smallCalendarCurrentDate"<%else%>class="smallCalendarDate"<%end if%> href="<%Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=eDate%>&amp;Node_ID=<%=Node_ID%>"><%=Day(eDate)%></a>
+									</td>
+								<%eDate = eDate + 1
+								  Next%>
+								</tr>
+								<%Next%>
+						</table>
+					</td>
+				</tr>							
+			</table>
+
+<%End Sub%>
+
+
+<%Public Sub UpdateRec (Table, IDName, IDVal, cnn)
+'Update the Records From A Page
+'Any field starting with an "_" will not be updated
+	Set rs = Server.CreateObject ("ADODB.Recordset")
+		aDate = Request.Form("a1")
+		aHour = Request.Form("a2")
+		aExtra = Request.Form("a3")
+		aMin = Request.Form("a4")
+		aMerge =  aDate & " " & aHour & ":" & aMin & aExtra
+		
+		durHour = Request.Form("b1")
+		durMin = Request.Form("b2")
+		durExtra = Request.Form("b3")
+		durMerge =  durHour & ":" & durMin & durExtra
+		
+	rs.Open "Select * From " & Table & " Where Title = '" & Request.Form("Title") & "' AND Date='" & aMerge & "' AND End_Date='" & durMerge & "'", cnnMain, 3, 3
+	If rs.EOF Then
+	rs.Close
+	rs.Open "Select * From " & Table & " Where " & IDName & "='" & IDVal & "'", cnnMain, 3, 3
+		If rs.EOF Then
+			rs.AddNew
+		End If
+		
+		rs("Node_ID") = Request.Form("Node_ID")
+		rs("Title") = Request.Form("Title")
+		rs("Description") = Request.Form("Description")
+		rs("Link") = Request.Form("Link")
+		
+		rs("Date") = aMerge
+		rs("End_Date") = durMerge
+		
+		If Request.Form("Event") = Checked Then
+			rs("Event") = 0
+		Else
+			rs("Event") = 1
+		End If			
+	rs.Update
+	End If
+	rs.Close
+End Sub
+
+Public Sub DeleteRec (Table, ID, cnn)
+'If there is a request to delete, delete the record.
+	Set rs = Server.CreateObject ("ADODB.Recordset")
+	rs.Open Table, cnnMain, 3, 3
+		Do While Not rs.EOF
+			If Request.Form("Delete" & rs(ID)) Then
+				rs.Delete
+			End If
+		rs.MoveNext
+		Loop
+	rs.Close
+End Sub	
+
+'Displays a month view of a calendar for the given date
+'The calendar to be displayed is indicated by the Node_ID passed
+Public Sub dispMonth (byVal Node_ID, dDate)
+%>
+<div align="left">
+<table border="0" cellpadding="0" cellspacing="0" width="500">
+    <!--<tr>
+	  <td colspan="2" nowrap align="right"><font size="1">Print events for this <a href="javascript:printMonth()">month</a> or this <a href="javascript:printYear()">year</a>.</font></td>
+	</tr>-->
+ 	<tr>
+ 	  <td valign="top"><%dispMonthToolbar Node_ID, dDate%></td>
+	  <td valign="top">
+		<table border="0" cellpadding="0" cellspacing="0">
+		  <tr>
+		    <td><%dispTabs Node_ID, dDate, "month"%></td>
+		  </tr>
+		  
+		  <tr>
+		    <td>
+				<table border="0" cellpadding="0" cellspacing="0" width="400">	
+				  <tr>
+					<td bgcolor=#CCCCFF>
+					  <table border="0" cellpadding="1" cellspacing="1" width="100%">	
+						<tr>
+							<td align="center" width="14%" class="daysOfWeekBar"><font size="2" color="white">Sun</font></td>
+							<td align="center" width="14%" class="daysOfWeekBar"><font size="2" color="white">Mon</font></td>
+							<td align="center" width="14%" class="daysOfWeekBar"><font size="2" color="white">Tue</font></td>
+							<td align="center" width="14%" class="daysOfWeekBar"><font size="2" color="white">Wed</font></td>
+							<td align="center" width="14%" class="daysOfWeekBar"><font size="2" color="white">Thu</font></td>
+							<td align="center" width="14%" class="daysOfWeekBar"><font size="2" color="white">Fri</font></td>
+							<td align="center" width="14%" class="daysOfWeekBar"><font size="2" color="white">Sat</font></td>
+						</tr>	
+							<%
+							'Determine the day of the week the month starts on
+							mstDate = WeekDay(CDate(Month(dDate) & "/1/" & Year(dDate))) 
+							'This is the date that we start printing on the calendar
+							tDate = DateAdd("d", -mstDate + 1,CDate(Month(dDate) & "/1/" & Year(dDate)))
+							
+							'Determine how many rows in the calendar we need based on the number of days in the month
+							If (daysInMonth(dDate) + mstDate - 1)/7  > 5 Then
+								n = 6
+							ElseIf (daysInMonth(dDate) + mstDate - 1)/7  > 4 Then
+								n = 5
+							Else
+								n = 4
+							End If
+							%>
+						
+						<%For x = 1 to n%>
+						<tr>
+						<%For y = 1 to 7
+						  If tDate = Date() Then%>
+							<td height="100" class="CurrentDay" valign="top" width="10%">&nbsp	
+						<%ElseIf Month(tDate) = Month(dDate) Then%>
+							<td height="100" bgcolor="White" valign="top" width="10%">
+						<%Else%>
+							<td height="100" class="ExtraDays" valign="top" width="10%">
+						<%End If%>		
+							<font size="2"><a class="date" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=tDate%>&amp;Node_ID=<%=Node_ID%>"><strong><%=Day(tDate)%></strong></a></font><br>
+								<%rsCalendar.MaxRecords = 4
+								rsCalendar.Open "Select * From calendar Where DatePart(mm,Date) = " & Month(tDate) & " And DatePart(dd,Date) = " & Day(tDate) & " And DatePart(yy,Date) = " & Year(tDate) & " And Node_ID = " & Node_ID & "Order by Date",cnnMain, 3%>
+								<%Do While Not rsCalendar.EOF%>
+								  <img src="/images/calendar/7arrowRight.gif" WIDTH="7" HEIGHT="7"><font size="1"><%=rsCalendar("Title")%></font><br>
+								
+								<%rsCalendar.MoveNext
+								  Loop
+								  If rsCalendar.RecordCount > 3 Then%>
+								    <img src="/images/Calendar/7arrowDOWN.gif" WIDTH="7" HEIGHT="7"><font size="1"><a href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=tDate%>&amp;Node_ID=<%=Node_ID%>">more info</a></font>
+								<%End If
+								  rsCalendar.Close%>		
+							</td>
+							<%tDate = tDate + 1
+							Next%>
+						</tr>
+						<%Next%>
+					  </table>
+				</td>
+			  </tr>
+		    </table>
+	      </td>
+	    </tr>	
+	  </table>	
+	</td>
+  </tr>
+</table>
+</div>									
+
+<%End Sub%>
+
+<%'Displays a calendar with a day view for a particular date.  
+  'The calendar to be displayed is indicated by the Node_ID passed
+  'The Admin argument is a boolean value that specifies whether the user has editing abilities
+Public Sub dispDay (byVal Node_ID, dDate, Admin)
+z = 8
+%>
+<div align="left">
+<table border="0" width="500" cellspacing="2" cellpadding="0">
+  <tr>
+    <td valign="top" width="13%" align="center">
+	  <span class="DateText"><font size="4"><strong><%=MonthName(Month(dDate))%><br><%=Day(dDate)%><br><%=Year(dDate)%></strong></font></span><p>
+			<%dispToolbar Node_ID, dDate, Admin%>
+	</td>
+	<td>
+	  <table border="0" width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+		  <td><%dispTabs Node_ID, dDate, "day"%></td>
+		<tr>
+		<tr>
+		  <td valign="top" class="DayBar">
+			<table border="0" width="100%" cellspacing="0" cellpadding="0">
+			  <tr>
+				<td class="borders" colspan="3">
+					<table border="0" cellspacing="1" cellpadding="2" width="100%">
+						<%
+						strCal ="SELECT * FROM calendar Where DatePart(mm,Date) = " & Month(dDate) & " And DatePart(dd,Date) = " & Day(dDate) & " And DatePart(yy,Date) = " & Year(dDate) & " And Event = 1 And Node_ID = " & Node_ID 
+						rsCalendar.Open strCal, cnnMain, 3
+						Do While Not rsCalendar.EOF
+						%>
+						<tr>
+							<td valign="top" class="AllDayEvent" colspan="2"><font size="2">
+							<%If Admin Then%>				
+								<a class="eventLinks" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?Edit=<%=rsCalendar("Calendar_ID")%>&amp;Node_ID=<%=Node_ID%>&amp;Date=<%=dDate%>&amp;startTime=ignore"><%=rsCalendar("Title")%></a></font>
+							<%Else
+							    If rsCalendar("Link") <> "" Then%>
+								<a class="eventLinks" href="http://<%=rsCalendar("Link")%>" target="_new"><%=rsCalendar("Title")%></a>
+							  <%Else
+								Response.Write rsCalendar("Title")
+								End If%>
+							<%End If%>
+							<%If rsCalendar("Description") <> "" Then%>
+								<font size="2">- <%=rsCalendar("Description")%></font>
+							<%End If%>
+																											
+							</td>
+						</tr>
+						<%
+						rsCalendar.MoveNext
+						Loop
+						rsCalendar.Close 
+						For x = 0 to 23
+							HourPart = CStr(x)
+							If HourPart = "0" Then
+								HourPart = "00"
+							End If
+															
+							rsCalendar.Open "SELECT * FROM calendar Where DatePart(mm,Date) = " & Month(dDate) & " And DatePart(dd,Date) = " & Day(dDate) & " And DatePart(yy,Date) = " & Year(dDate) & " And DatePart(hh, Date)=" & HourPart & " And Event = 0 And Node_ID = " & Node_ID & " Order By Date", cnnMain, 3
+							If Not rsCalendar.EOF Or (x > 7 AND x < 20) Then
+								%>
+								<tr>
+								<%
+								If Admin Then%>
+								<td bgcolor="white" valign="top" width="15%"><font size="2"><a class="updateLinks" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?Edit=0&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>&amp;startTime=<%=x%>"><%=hourFunc(x)%></a></font></td>
+								<%Else%>
+								<td bgcolor="white" valign="top" width="15%"><font size="2"><%=hourFunc(x)%></a></font></td>
+								<%End If%>
+								<td bgcolor="white" width="88%">&nbsp;<% 
+										Do While Not rsCalendar.EOF 
+											If CInt(Left(FormatDateTime(rsCalendar("Date"), vbShortTime),2)) = x Then%>
+												<font size="2">
+												<%If Admin Then%>
+												<a class="eventLinks" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?Edit=<%=rsCalendar("Calendar_ID")%>&amp;Node_ID=<%=Node_ID%>&amp;Date=<%=dDate%>&amp;startTime=ignore"><%=rsCalendar("Title")%></a>
+												<%Else
+												  If rsCalendar("Link") <> "" Then%>
+												<a class="eventLinks" href="http://<%=rsCalendar("Link")%>" target="_new"><%End If%><%=rsCalendar("Title")%></a>
+												<%End If
+												  If rsCalendar("Description") <> "" Then%>
+												- <%Response.Write rsCalendar("Description")
+												  End If%>
+												&nbsp;<%endPartDate  = Right(FormatDateTime(rsCalendar("Date"),vbLongTime), 2)
+												        endPartEndDate  = Right(FormatDateTime(rsCalendar("End_Date"),vbLongTime), 2)%>
+												(<%=Left(FormatDateTime(rsCalendar("Date"),vbLongTime), InStrRev(FormatDateTime(rsCalendar("Date"),vbLongTime),":")-1) & " " & endPartDate & " "%>-<%=Left(FormatDateTime(rsCalendar("End_Date"),vbLongTime), InStrRev(FormatDateTime(rsCalendar("End_Date"),vbLongTime),":")-1) & " " & endPartEndDate%>)
+												</font>
+												<br>
+											<%End If
+										rsCalendar.MoveNext
+										Loop
+									  %>
+								</td>	 
+								</tr>
+								<%	
+								End If
+																													
+							rsCalendar.Close														
+																											
+						Next%>
+														
+					</table>
+			    </td>
+			  </tr>
+			</table>		
+		  </td>
+		</tr>
+	  </table>
+    </td>
+  </tr>
+</table>
+</div>														
+<%End Sub%>
+
+<%'Displays the form for adding or editing an event in a calendar
+  'Node_ID		- (int)indeicates the calendar to edit 
+  'Calendar_ID	- (int) this is the unique identifier for the event record to be editted; if no event exists, then
+  '				  a new one is created 
+  'dDate		- (datetime) the date of the event 
+  'startTime	- (string) takes a string that is a number represntinf the start time; if no start time 
+  '               is to be specified, then the value should be "ignore"; when the value is "ignore" the default
+  '				  start and end time is 12 AM
+Public Sub dispEdit(byVal Node_ID, Calendar_ID, dDate, startTime)%>
+
+<form method="POST" action="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>" name="CalendarForm">
+	<input type="hidden" name="Calendar_ID" value="<%=Request.QueryString("Edit")%>">
+<!--	<input type="hidden" name="Calendar_ID" value="<%=Calendar_ID%>"> -->
+	<input type="hidden" name="Node_ID" value="<%=Node_ID%>">
+	<input type="hidden" name="updateAction" value="update">
+	
+	<table border="0" width="720" cellpadding="5">
+		<tr>
+			<td colspan="7"><strong>Edit Screen</strong>
+			<table border="0" cellspacing="0">
+			<tr>
+					<td bgcolor="#F2F2F2">	
+						<table border="0" width="100%">
+							<tr>
+								<td colspan="2">
+									<font size="2">click save to add event information</font>
+								</td>
+								<td colspan="5" align="right"><a href="javascript:history.go(-1)"><strong>Cancel</strong></a></td>
+							</tr>	
+							<tr>
+								<td colspan="7" align="right"><a href="javascript:Verify()"><strong>Save</strong></a></td>
+							</tr>
+							<tr>
+								<td valign="top"><strong>Title</strong></td>
+								<td><input class="TextField" type="text" name="Title" size="53" value="<%=rsCalendar("Title")%>"></td>
+								<td><strong>Start Time</strong></td>
+								<td><select NAME="a2" class="ComboField">
+										<%For x = 0 to UBound(strTimeHr)%>
+												<%'Find the value to set the selected time when the edit screen appears
+												  If startTime <> "ignore" Then
+												    selHour = trim(startTime)
+												  Else
+												    selHour = Hour(rsCalendar("Date"))
+												  End If
+												  
+												  If selHour = 0 Then
+													selHour = 12
+												  ElseIf selHour = 12 Then
+													pm = true												  
+												  ElseIf selHour < 12 Then
+												    pm = false
+												  Else
+												    If selHour > 12 Then
+													  selHour = selHour - 12
+													  pm = true
+												    End If
+												  End If%>
+												<option value="<%=strTimeHr(x)%>" <%If strTimeHr(x) = selHour Then%> Selected <%End If%>><%=strTimeHr(x)%>	
+										<%Next%>
+									</select>
+								</td>
+								<td><font size="2">hr</font></td>
+								<td><select NAME="a4" class="ComboField">
+										<%For x = 0 to UBound(strTimeMin)%>
+												<option value="<%=strTimeMin(x)%>" <%If strTimeMin(x) = Minute(rsCalendar("Date")) Then%> Selected <%End If%>><%=strTimeMin(x)%>	
+										<%Next%>
+									</select>
+								</td>
+								<td><font size="2">min</font></td>
+								<td><select name="a3" class="ComboField">
+										<option <%If Left(FormatDateTime(rsCalendar("Date"), vbShortTime),2) >= 0 Then%> Selected <%End If%>>AM</option>
+										<option <%If Left(FormatDateTime(rsCalendar("Date"), vbShortTime),2) >= 12 or pm Then%> Selected <%End If%>>PM</option>
+									</select>
+								</td>		
+							</tr>
+							<tr>
+								<td rowspan="3" valign="top" rowspan="2"><strong>Description</strong></td>
+								<td rowspan="3"><textarea class="TextAreaField" cols="52" rows="5" name="Description"><%=rsCalendar("Description")%></textarea></td>	
+								<td valign="top"><strong>End Time</strong></td>
+								<td valign="top"><select NAME="b1" class="ComboField">
+										<%For x = 0 to UBound(strTimeHr)
+										    'Find the value to set the selected time when the edit screen appears
+										    If startTime <> "ignore" Then
+											  selHour = startTime
+											Else
+											  selHour = Hour(rsCalendar("End_Date"))
+											End If
+											
+											If selHour = 0 Then
+												selHour = 12
+											Else 
+												If  selHour > 12 Then
+													selHour = selHour - 12
+												End If
+											End If%>
+												<option value="<%=strTimeHr(x)%>" <%If strTimeHr(x) = selHour Then%> Selected <%End If%>><%=strTimeHr(x)%>	
+										<%Next%>
+											</select>
+								</td>
+								<td><font size="2">hr</font></td>
+								<td valign="top"><select NAME="b2" class="ComboField">
+										<%For x = 0 to UBound(strTimeMin)%>
+												<option value="<%=strTimeMin(x)%>" <%If strTimeMin(x) = Minute(rsCalendar("End_Date")) Then%> Selected <%End If%>><%=strTimeMin(x)%>	
+										<%Next%>
+									</select>
+								</td>
+								<td><font size="2">min</font></td>
+								<td valign="top"><select name="b3" class="ComboField">
+										<option <%If Left(FormatDateTime(rsCalendar("Date"), vbShortTime),2) >= 0 Then%> Selected <%End If%>>AM</option>
+										<option <%If Left(FormatDateTime(rsCalendar("Date"), vbShortTime),2) >= 12 or pm Then%> Selected <%End If%>>PM</option>
+									</select>
+								</td>	
+							</tr>	
+							<tr>
+								<td align="right" valign="top"><input type="checkbox" name="Event" value="true" <%If rsCalendar("Event") Then%>Checked<%End If%>></td>
+								<td valign="top" colspan="4"><font size="1">All Day Event</font></td>
+							</tr>
+							<tr>
+								<td colspan="5">&nbsp;</td>
+								
+							</tr>	
+							<tr>
+								<td><strong>Date</strong></td>
+								<td colspan="6"><%If Request.QueryString("Edit") = 0 Then%>
+								<input class="TextField" type="text" name="a1" value="<%=dDate%>">
+								<%Else%>
+								<input class="TextField" type="text" name="a1" value="<%=FormatDateTime(rsCalendar("Date"), vbShortDate)%>">
+								<%End If%></td>
+							</tr>
+							<tr>
+								<td><strong>Link</strong><br><font size="2">i.e. www.test.com</font></td>
+								<td valign="top"><input class="TextField" type="text" name="Link" size="40" value="<%=rsCalendar("Link")%>"></td>
+							</tr>	
+						</table>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</td>
+	</tr>
+	</table>
+</form>						
+	
+<%End Sub%>
+
+<%'Displays a screen that allows the administrator to choose which events to delete from the database
+  'Node_ID		- (int) specifies the calendar the events are associated with
+  'Calendar_ID  - (int) a unique ID of the event record to be deleted
+  'dDate		- (datetime) the date used to specify a range of records to delete
+  'dispType		- (string) takes a string indicating which records to display
+  '						"day" - displays records for the given day
+  '						"month" - displays records for the given month
+  '						"year" - displays records for the given year
+Public Sub dispDelete(byVal Node_ID, Calendar_ID, dDate, dispType)%>
+	<form method="POST" action="<%=Request.ServerVariables("SCRIPT_NAME")%>?Action=Delete&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>" name="CalendarForm">
+
+	<table border="0" width="100%">
+		<tr>
+			<td><strong>Delete Screen</strong>
+			<table border="0" cellspacing="0" bordercolor="#F2F2F2">
+				<tr>
+					<td bgcolor="#F2F2F2">
+						<table border="0" width="100%">
+								<tr>
+									<td><font size="2">click delete to delete an event</font></td>
+									<td align="right"><a href="<%Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>"><strong>Cancel</strong></a></td>
+								</tr>
+								<tr>
+									<td colspan="2"> 
+									<table border="0" width="100%">
+											<tr>
+												<td colspan="2" align="right"><a href="javascript:Delete();"><strong>Delete</strong></a></td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<table border="0" width="100%">
+													<%'Build the query string based on whether they want it displayed by day, month, or year
+													  If dispType = "day" Then
+														strCal = "SELECT * FROM calendar WHERE DatePart(mm,Date) = " & Month(dDate) & " And DatePart(dd,Date) = " & Day(dDate) & " And DatePart(yy,Date) = " & Year(dDate) & " And Node_ID = " & Node_ID & " Order By Date Asc"%>
+														<input type="hidden" name="View" value="Day">														
+													  <%ElseIf dispType = "month" Then
+														strCal = "SELECT * FROM calendar WHERE DatePart(mm,Date) = " & Month(dDate) & " And DatePart(yy,Date) = " & Year(dDate) & " And Node_ID = " & Node_ID & " Order By Date Asc"%>
+														<input type="hidden" name="View" value="Month">
+													  <%Else	'dispType = year
+														strCal = "SELECT * FROM calendar WHERE Node_ID= " & Node_ID & " Order By Date Asc"%>
+														<input type="hidden" name="View" value="Year">
+													  <%End If%>
+													
+													
+													<%'open the recordset and display the events records with a checkbox to mark for deletion
+													  rsCalendar.Open strCal,cnnMain, 3, 3
+													  Do While Not rsCalendar.EOF%>
+														<tr><%If MonthName(DatePart("m",rsCalendar("Date"))) <> x Then%>
+															<td colspan="3" bgcolor="Lavender"><strong><em><%=MonthName(DatePart("m",rsCalendar("Date")))%></em></strong></td>
+															<%End If%>
+														</tr>
+														<%x = MonthName(DatePart("m",rsCalendar("Date")))%>
+														<tr>
+															<td ><input class="CheckField" type="checkbox" name="Delete<%=rsCalendar("Calendar_ID")%>" value="true"></td>
+															<td ><font size="2"><%if rsCalendar("Event") then%>
+																					<%="All Day"%>
+																				<%else%>
+																					<%=FormatDateTime(rsCalendar("Date"),vbLongDate) & "<br>" & FormatDateTime(rsCalendar("Date"),vbLongTime)%>
+																				<%end if %></font></td>
+															<td  bgcolor="#<%=bgColor(0)%>"><font size="2"><%=rsCalendar("Title")%></font></td>
+														</tr>
+														<tr>
+															<td colspan="2">&nbsp;</td>
+															<td width bgcolor="#<%=bgColor(1)%>"><ul><font size="2"><%=rsCalendar("Description")%></font></td>
+														</tr>
+														<%rsCalendar.MoveNext
+														  Loop%>
+														<input type="hidden" name="updateAction" value="delete">
+													</table>
+												</td>
+											</tr>			  		
+										</table>
+										</td>
+								</tr>			
+						</table>
+					</td>
+				</tr>
+			</table>
+			</td>
+		</tr>
+	</table>								
+</form>
+	
+<%End Sub%>
+
+<%'This builds a toolbarthat can go on the side of a calendar.  The most logical calendar to add it to is
+  'the day view but it could be used on others.  It uses the makeSmallMonth function to build a small month
+  'calendar.  Then it will display links to add or delete events if the user is an administrator
+  '
+  'Node_ID		- (int) specifies which calendar is being used
+  'dDate		- (datetime) the date to build the display for
+  'Admin		- (boolean) indicates whether the user is an administrator
+Public Sub dispToolbar(byVal Node_ID, dDate, Admin)
+tDate = dDate
+%>
+	<input type="hidden" value="Month" name="View">
+	<table border="0" width="125" cellpadding="0" cellspacing="0">
+	  <tr>
+	    <td colspan="2">
+			<%makeSmallMonth dDate%>
+	    </td>
+	  </tr>
+	  <%If Admin Then%>
+	  <tr>
+	    <td>&nbsp;</td>
+	  </tr>
+	  <tr>
+		<td colspan="2" align="left"><font size="2"><strong><a class="updateLinks" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?Edit=0&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>&amp;startTime=ignore">Add Event</a></strong></font></td>
+	  </tr>
+	  <tr>
+		<td colspan="2" align="left"><font size="2"><strong><a class="updateLinks" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?updateAction=dispDeletePage&amp;Date=<%=tDate%>&amp;Node_ID=<%=Node_ID%>&amp;dispType=day">Delete Event(s)</a></strong></font></td>
+	  </tr>
+	  <%End If%>			
+	</table>
+	
+<%End Sub%>
+
+<%'Builds a toolbar that has a list of months on it for the user to quickly navigate to another month in the 
+  'current year.  It also has the year on it with navigation arrows so that the user can skip to the previous
+  'or next year.  Finally, it displays a link to the current day called "today."
+  Public Sub dispMonthToolbar(byVal Node_ID, dDate)%>
+
+						<table border="0" cellpadding="0" cellspacing="0" width="125">
+						  <tr>
+						    <td align="right">
+							<table border="0" cellpadding="1" cellspacing="1">
+								<tr>
+									<td bgcolor="CC0000">
+										<table border="0" cellpadding="1" cellspacing="0">
+											<tr>
+											  <td bgcolor="white" colspan="3" align="center"><font size="5" face="verdana" color="#CC0000 "><strong><%=UCase((MonthName(Month(dDate), TRUE)))%></strong></font></td>
+											</tr>
+											<tr>
+											    <td bgcolor="white" valign="middle"><a href="<%Request.ServerVariables("SCRIPT_NAME")%>?View=Month&amp;Date=<%=SubtractOneYear(dDate)%>&amp;Node_ID=<%=Node_ID%>"><img src="/images/calendar/7arrowleft.gif" border="0" width="7" height="7"></a></td>
+												<td bgcolor="white" align="center"><font size="2" face="arial" color="#CC0000 "><%=DatePart("yyyy",dDate)%></font></td>
+												<td bgcolor="white" valign="middle"><a href="<%Request.ServerVariables("SCRIPT_NAME")%>?View=Month&amp;Date=<%=AddOneYear(dDate)%>&amp;Node_ID=<%=Node_ID%>"><img src="/images/calendar/7arrowRight.gif" border="0" width="7" height="7"></a></td>
+											</tr>
+											<tr>
+											  <td colspan="3">
+											    <table border="0" cellpadding="3" cellspacing="0">
+											      <tr>
+											        <td>
+											          <table border="0" cellpadding="1" cellspacing="0">
+											          <%For x = 1 to 6
+														xDate = CDate(x & "/" & 1 & "/" & Year(dDate))%>
+														<tr>
+														  <td align="center" colspan="3"><a class="Toolbar" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Month&amp;Date=<%=xDate%>&amp;Node_ID=<%=Node_ID%>"><font size="1" face="arial"><%=UCase(MonthName(x,True))%></font></a></td>
+														</tr>
+														<%Next%>
+											          </table>
+											        </td>
+											        <td>
+											          <table border="0" cellpadding="1" cellspacing="0">
+											          <%For x = 7 to 12
+														xDate = CDate(x & "/" & 1 & "/" & Year(dDate))%>
+														<tr>
+														  <td align="center" colspan="3"><a class="Toolbar" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Month&amp;Date=<%=xDate%>&amp;Node_ID=<%=Node_ID%>"><font size="1" face="arial"><%=UCase(MonthName(x,True))%></font></a></td>
+														</tr>
+														<%Next%>
+											          </table>
+											        </td>
+											      </tr>
+											    </table>
+											  </td>
+											</tr>
+											<tr>
+											  <td colspan="3" bgcolor="white" align="center"><font size="2"><strong><a class="Todaydate" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=Date%>&amp;Node_ID=<%=Node_ID%>">Today</a></font></strong></td>
+											</tr>
+										</table>
+									</td>
+								</tr>			
+							</table>
+						    </td>
+						  </tr>
+						</table>
+	
+<%End Sub%>
+
+<%'This displays the tabs for all three view types.  
+  'tabView	- (string) Indicates which view to display the tabs for. 
+  '					"day" - day tab is selected; month and year tabs are active links 
+  '					"month" - month tab is selected; day and year tabs are active links
+  '					"year" - year tab is selected; day and month tabs are active links
+Public Sub dispTabs(byVal Node_ID, dDate, tabView)%>
+		  
+  <%If tabView = "day" Then%>  
+<TABLE CELLPADDING="0" CELLSPACING="0" HEIGHT="17" WIDTH="100%" BORDER="0">
+		<TR ALIGN="center" BGCOLOR="<%=inactiveTab%>">
+			<TD WIDTH="5" BGCOLOR="<%=tabsOutside%>" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="5" HEIGHT="16"></TD>
+			<TD WIDTH="1" ROWSPAN="3"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="17"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD WIDTH="5" BGCOLOR="<%=tabsOutside%>" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="5" HEIGHT="16"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD WIDTH="5" BGCOLOR="<%=tabsOutside%>" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="5" HEIGHT="16"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD WIDTH="100%" BGCOLOR="<%=tabsOutside%>" NOWRAP ROWSPAN="2" align="right"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1">
+			<a href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=SubtractOneDay(dDate)%>&amp;Node_ID=<%=Node_ID%>"><img src="/images/calendar/7arrowleft.gif" border="0" WIDTH="7" HEIGHT="7"></a>
+			        <font size="2" face="verdana"><strong><%=MonthName(Month(dDate)) & " " & Day(dDate) & ", " & Year(dDate)%></strong></font>
+			        <a href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=AddOneDay(dDate)%>&amp;Node_ID=<%=Node_ID%>"><img src="/images/calendar/7arrowRight.gif" border="0" WIDTH="7" HEIGHT="7"></a>
+			</TD>
+		</TR>
+		<TR ALIGN="center" BGCOLOR="<%=inactiveTab%>">
+			<TD BGCOLOR="<%=activeTab%>" HEIGHT="15" NOWRAP>&nbsp;&nbsp;<FONT size="<%=fontSize%>" color="<%=inactiveTab%>"><STRONG>Day</STRONG></FONT>&nbsp;&nbsp;</TD>
+			<TD HEIGHT="15" NOWRAP>&nbsp;&nbsp;<A class="tabLink" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Month&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>"><FONT size="<%=fontSize%>"><strong>Month</strong></FONT></A>&nbsp;&nbsp;</TD>
+			<TD HEIGHT="15" NOWRAP>&nbsp;&nbsp;<A class="tabLink" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Year&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>"><FONT size="<%=fontSize%>"><strong>Year</strong></FONT></A>&nbsp;&nbsp;</TD>
+		</TR>
+		<TR ALIGN="center" BGCOLOR="<%=inactiveTab%>">
+			<TD WIDTH="5" HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD BGCOLOR="<%=activeTab%>" HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="7" COLSPAN="3"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="7" HEIGHT="1"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="7" COLSPAN="3"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="7" HEIGHT="1"></TD>
+			<TD HEIGHT="1" NOWRAP COLSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="100%" HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+		</TR>
+		<TR BGCOLOR="<%=tabsOutside%>">
+			<TD HEIGHT="3" COLSPAN="17"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="3" HEIGHT="3"></TD>
+		</TR>
+</TABLE>
+		
+	<%ElseIf tabView = "month" Then  'View = day%>	
+<TABLE CELLPADDING="0" CELLSPACING="0" HEIGHT="17" WIDTH="100%" BORDER="0">
+		<TR ALIGN="center" BGCOLOR="<%=inactiveTab%>">
+			<TD WIDTH="5" BGCOLOR="<%=tabsOutside%>" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="5" HEIGHT="16"></TD>
+			<TD WIDTH="1" ROWSPAN="3"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="17"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD WIDTH="5" BGCOLOR="<%=tabsOutside%>" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="5" HEIGHT="16"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD WIDTH="5" BGCOLOR="<%=tabsOutside%>" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="5" HEIGHT="16"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD WIDTH="100%" BGCOLOR="<%=tabsOutside%>" NOWRAP ROWSPAN="2" align="right"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1">
+			<a href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Month&amp;Date=<%=SubtractOneMonth(dDate)%>&amp;Node_ID=<%=Node_ID%>"><img src="/include/calendar/images/7arrowleft.gif" border="0" WIDTH="7" HEIGHT="7"></a>
+			        <font size="2" face="verdana"><strong><%=(MonthName(Month(dDate))) & ", " & DatePart("yyyy",dDate)%></strong></font>
+			        <a href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Month&amp;Date=<%=AddOneMonth(dDate)%>&amp;Node_ID=<%=Node_ID%>"><img src="/include/calendar/images/7arrowRight.gif" border="0" WIDTH="7" HEIGHT="7"></a>
+			</TD>
+		</TR>
+		<TR ALIGN="center" BGCOLOR="<%=inactiveTab%>">
+			<TD HEIGHT="15" NOWRAP>&nbsp;&nbsp;<A class="tabLink" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>"><FONT size="<%=fontSize%>"><strong>Day</strong></FONT></A>&nbsp;&nbsp;</TD>
+			<TD BGCOLOR="<%=activeTab%>" HEIGHT="15" NOWRAP>&nbsp;&nbsp;<FONT size="<%=fontSize%>" color="<%=inactiveTab%>"><STRONG>Month</STRONG></FONT>&nbsp;&nbsp;</TD>
+			<TD HEIGHT="15" NOWRAP>&nbsp;&nbsp;<A class="tabLink" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Year&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>"><FONT size="<%=fontSize%>"><strong>Year</strong></FONT></A>&nbsp;&nbsp;</TD>
+		</TR>
+		<TR ALIGN="center" BGCOLOR="<%=inactiveTab%>">
+			<TD WIDTH="5" HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="7" COLSPAN="3"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="7" HEIGHT="1"></TD>
+			<TD BGCOLOR="<%=activeTab%>" HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="7" COLSPAN="3"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="7" HEIGHT="1"></TD>
+			<TD HEIGHT="1" NOWRAP COLSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="100%" HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+		</TR>
+		<TR BGCOLOR="<%=tabsOutside%>">
+			<TD HEIGHT="3" COLSPAN="17"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="3" HEIGHT="3"></TD>
+		</TR>
+</TABLE>
+	<%Else 'View = year%>
+<TABLE CELLPADDING="0" CELLSPACING="0" HEIGHT="17" WIDTH="100%" BORDER="0">
+		<TR ALIGN="center" BGCOLOR="<%=inactiveTab%>">
+			<TD WIDTH="5" BGCOLOR="<%=tabsOutside%>" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="5" HEIGHT="16"></TD>
+			<TD WIDTH="1" ROWSPAN="3"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="17"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD WIDTH="5" BGCOLOR="<%=tabsOutside%>" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="5" HEIGHT="16"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD WIDTH="5" BGCOLOR="<%=tabsOutside%>" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="5" HEIGHT="16"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="1" ROWSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="16"></TD>
+			<TD WIDTH="100%" BGCOLOR="<%=tabsOutside%>" NOWRAP ROWSPAN="2" align="right"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1">
+					<a href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Year&amp;Date=<%=SubtractOneYear(dDate)%>&amp;Node_ID=<%=Node_ID%>"><img src="/include/calendar/images/7arrowleft.gif" border="0" WIDTH="7" HEIGHT="7"></a>
+			        <font size="2" face="verdana"><strong><%=Year(dDate)%></strong></font>
+			        <a href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Year&amp;Date=<%=AddOneYear(dDate)%>&amp;Node_ID=<%=Node_ID%>"><img src="/include/calendar/images/7arrowRight.gif" border="0" WIDTH="7" HEIGHT="7"></a>
+			</TD>
+		</TR>
+		<TR ALIGN="center" BGCOLOR="<%=inactiveTab%>">
+			<TD HEIGHT="15" NOWRAP>&nbsp;&nbsp;<A class="tabLink" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>"><FONT size="<%=fontSize%>"><strong>Day</strong></FONT></A>&nbsp;&nbsp;</TD>
+			<TD HEIGHT="15" NOWRAP>&nbsp;&nbsp;<A class="tabLink" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Month&amp;Date=<%=dDate%>&amp;Node_ID=<%=Node_ID%>"><FONT size="<%=fontSize%>"><strong>Month</strong></FONT></A>&nbsp;&nbsp;</TD>
+			<TD BGCOLOR="<%=activeTab%>" HEIGHT="15" NOWRAP>&nbsp;&nbsp;<FONT size="<%=fontSize%>" color="<%=inactiveTab%>"><STRONG>Year</STRONG></FONT>&nbsp;&nbsp;</TD>
+		</TR>
+		<TR ALIGN="center" BGCOLOR="<%=inactiveTab%>">
+			<TD WIDTH="5" HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="7" COLSPAN="3"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="7" HEIGHT="1"></TD>
+			<TD HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="7" COLSPAN="3"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="7" HEIGHT="1"></TD>
+			<TD BGCOLOR="<%=activeTab%>" HEIGHT="1" NOWRAP COLSPAN="2"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+			<TD WIDTH="100%" HEIGHT="1" NOWRAP><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="1" HEIGHT="1"></TD>
+		</TR>
+		<TR BGCOLOR="<%=tabsOutside%>">
+			<TD HEIGHT="3" COLSPAN="17"><IMG SRC="/include/calendar/images/spacer.gif" WIDTH="3" HEIGHT="3"></TD>
+		</TR>
+</TABLE>
+	<%End If%>
+	
+<%End Sub%>
+
+<%'Builds a page full of monthly calendars for the particular year
+Public Sub dispYear (byVal Node_ID, dDate)%>
+
+<div align="left">
+<table cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <!--This first column is only here to make the year view consistent with the month and day views-->
+    <td width="125">&nbsp</td>
+    <td>
+		<table cellspacing="2" cellpadding="2" border="0">
+		<tr>
+		  <td><%dispTabs Node_ID, dDate, "year"%></td>
+		</tr>
+		<tr>
+		  <td>
+			<table cellspacing="2" cellpadding="2" border="0">
+			  <%'The month index will represent each month, starting with January.  Then a table will be built
+			    'that has 4 rows and 3 columns to hold each monthly calendar.
+			    monthIndex = 1
+			    For y = 1 to 4%>
+			  <tr>
+			    <%For x = 1 to 3
+			      newDate = monthIndex & "/1/" & Year(dDate)%>
+				<td valign="top">
+			  
+					<table border="0" cellpadding="2" cellspacing="0" width="100%">
+						<tr>
+							<td colspan="7" align="center" bgcolor="white"><font size="2"><a class="Date" href="<%=Request.ServerVariables("SCRIPT_NAME")%>?View=Month&amp;Date=<%=newDate%>&amp;Node_ID=<%=Node_ID%>"><%=MonthName(monthIndex)%></a></font></td>
+						</tr>
+						<tr>
+							<td class="DayBar" align="center"><font color="white" size="1">S</font></td>
+							<td class="DayBar" align="center"><font color="white" size="1">M</font></td>
+							<td class="DayBar" align="center"><font color="white" size="1">T</font></td>
+							<td class="DayBar" align="center"><font color="white" size="1">W</font></td>
+							<td class="DayBar" align="center"><font color="white" size="1">T</font></td>
+							<td class="DayBar" align="center"><font color="white" size="1">F</font></td>
+							<td class="DayBar" align="center"><font color="white" size="1">S</font></td>
+						</tr>
+						<%'Find the weekday of the first day of the month
+						  mstDate = WeekDay(CDate(newDate))
+		  				  'eDate is the day that the monthly calendar needs to start on - it may be the first day
+		  				  'of the current month, or it may be one of the last days of the previous months
+		  				  eDate = DateAdd("d", -mstDate + 1,CDate(newDate))%>
+						<%'Build the calendar - Builds a default 6 rows for each calendar.  If there is no data in the 
+						  'first or last row then it won't matter because the background will be white
+						  For row = 1 to 6%>
+							<tr>
+							<%For column = 1 to 7%>
+							<%If eDate = Date() Then 'highlite the current day%>
+								<td class="CurrentDay" valign="top" align="center">
+									<font size="1"><a class="smallCalendarDate" href="<%Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=eDate%>&amp;Node_ID=<%=Node_ID%>"><%=Day(eDate)%></a>
+								</td>	
+							<%ElseIf Month(eDate) = monthIndex Then 'only display days in the current month%>
+								<td bgcolor="White" valign="top" align="center">
+									<font size="1"><a class="smallCalendarDate" href="<%Request.ServerVariables("SCRIPT_NAME")%>?View=Day&amp;Date=<%=eDate%>&amp;Node_ID=<%=Node_ID%>"><%=Day(eDate)%></a>
+								</td>
+							<%Else 'if the day is not in the current month then display nothing%>
+								<td bgcolor="white" valign="top" align="center"></td>
+																	
+							<%End If%>
+														
+							<%eDate = eDate + 1
+							  Next%>
+							</tr>
+							<%Next%>
+					</table>
+		      </td>
+		      <%monthIndex = monthIndex + 1
+		        Next%>
+		    </tr>
+		    <%Next%>
+		  </table>
+		</tr>
+		</table>
+
+    </td>
+  </tr>
+</table>
+</div>
+
+
+
+<%End Sub%>
+
+
+
+

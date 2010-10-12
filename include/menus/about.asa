@@ -1,0 +1,97 @@
+<table width=100% cellspacing="0" cellpadding="0" height="100%" border=0" bordercolor="orange">
+	<tr>
+		<td colspan="2" align="left" height="16" width="584">
+			<table cellspacing="0" cellpadding="0" border="0" bordercolor="orange" width=100%>
+				<tr>
+<%				if MyBrowser = "Firefox" or MyBrowser = "Netscape" then %>
+					<td align="left" width=17% onMouseover="Display('About', 110, 112)" OnMouseOut="Hide('About')"><img SRC="/images/spacer.gif" border="0" width="5" height="1"><a HREF="/aboutbcfpd/">About BCFPD</a></td>
+					<td align="center" width=16%><a HREF="/aboutbcfpd/patches/">Patches</a></td>
+					<td align="center" width=16%><a HREF="/aboutbcfpd/iso/">ISO</a></td>
+					<td align="center" width=16%><a HREF="/aboutbcfpd/fun_facts/">Fun Facts</a></td>
+					<td align="center" width=16% onMouseover="Display('Contact', 740, 112)" OnMouseOut="Hide('Contact')"><a HREF="/aboutbcfpd/contact_us/" >Contact Us</a></td>
+					<td align="center" width=16% onMouseover="Display('Gallery', 900, 112)" OnMouseOut="Hide('Gallery')"><a HREF="/aboutbcfpd/photo_gallery/intro.asp" >Gallery</a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="584">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="StartMenu" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+
+					<div ID="About" onMouseover="Display('About')" OnMouseOut="Hide('About')" CLASS="menubox">
+							&nbsp;<a CLASS="menutext" HREF="/aboutbcfpd/who_we_are/">Who We Are</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="/aboutbcfpd/history/">History</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="/aboutbcfpd/how_it_works/">How It Works</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="/aboutbcfpd/governance/">Governance</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="/aboutbcfpd/board/">Board Minutes</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" target="_blank" HREF="/aboutbcfpd/bylaws/bylaws.pdf">Bylaws</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="/aboutbcfpd/budget/">Budget</a>&nbsp;&nbsp;<br>
+					</div>
+					
+					<div ID="Contact" onMouseover="Display('Contact')" OnMouseOut="Hide('Contact')" CLASS="menubox">
+							&nbsp;<a CLASS="menutext" HREF="/aboutbcfpd/contact_us/personnel/">Personnel</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="/aboutbcfpd/contact_us/stations/">Stations</a>&nbsp;&nbsp;<br>
+					</div>
+
+					<div ID="Gallery" onMouseover="Display('Gallery')" OnMouseOut="Hide('Gallery')" CLASS="menubox">
+							&nbsp;<a CLASS="menutext" HREF="/aboutbcfpd/photo_gallery/photos/intro.asp">Photos</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="/aboutbcfpd/photo_gallery/videos/intro.asp">Videos</a>&nbsp;&nbsp;<br>
+					</div>
+					
+<%				else %>
+				<!--<td align="left" width=17%><img SRC="/images/spacer.gif" border="0" width="5" height="1"><a onMouseover="Display('About', 110, 139)" HREF="/aboutbcfpd/"><small><b>About BCFPD</b></small></a></td>-->
+					<td align="left" width=17% onMouseover="Display('About', 108, 118)"><img SRC="/images/spacer.gif" border="0" width="5" height="1"><a HREF="/aboutbcfpd/"><small><b>About BCFPD</b></small></a></td>
+					<td align="center" width=16%><a HREF="/aboutbcfpd/patches/"><small><b>Patches</b></small></a></td>
+					<td align="center" width=16%><a HREF="/aboutbcfpd/iso/"><small><b>ISO</b></small></a></td>
+					<td align="center" width=16%><a HREF="/aboutbcfpd/fun_facts/"><small><b>Fun Facts</b></small></a></td>
+					<td align="center" width=16% onMouseover="Display('Contact', 515, 118)"><a  HREF="/aboutbcfpd/contact_us/"><small><b>Contact Us</b></small></a></td>
+					<td align="center" width=16% onMouseover="Display('Gallery', 620, 118)"><a HREF="/aboutbcfpd/photo_gallery/intro.asp"><small><b>Gallery</b></small></a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="100%">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="StartMenu" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+				<div ID="About" onMouseover="keepMenu();" CLASS="menubox">
+					<A CLASS='menutext'  HREF='/aboutbcfpd/who_we_are/'>&nbsp;&nbsp;Who We Are</A>&nbsp;&nbsp;<BR>
+					<A CLASS='menutext'  HREF='/aboutbcfpd/history/'>&nbsp;&nbsp;History</A>&nbsp;&nbsp;<BR>
+					<A CLASS='menutext'  HREF='/aboutbcfpd/how_it_works/'>&nbsp;&nbsp;How It Works</A>&nbsp;&nbsp;<BR>
+					<A CLASS='menutext'  HREF='/aboutbcfpd/governance/'>&nbsp;&nbsp;Governance</A>&nbsp;&nbsp;<BR>
+					<A CLASS='menutext'  HREF='/aboutbcfpd/board/'>&nbsp;&nbsp;Board Minutes</A>&nbsp;&nbsp;<BR>
+					<A CLASS='menutext'  target="_blank" HREF='/aboutbcfpd/bylaws/bylaws.pdf'>&nbsp;&nbsp;Bylaws</A>&nbsp;&nbsp;<BR>
+					<A CLASS='menutext'  HREF='/aboutbcfpd/budget/'>&nbsp;&nbsp;Budget</A>&nbsp;&nbsp;<BR>
+				</div>
+
+				<div ID="Contact" onMouseover="keepMenu();" CLASS="menubox">
+					<a CLASS="menutext" HREF="/aboutbcfpd/contact_us/personnel/">&nbsp;&nbsp;Personnel&nbsp;&nbsp;</a>&nbsp;&nbsp<BR> 
+					<a CLASS="menutext" HREF="/aboutbcfpd/contact_us/stations/">&nbsp;&nbsp;Stations&nbsp;&nbsp;</a>&nbsp;&nbsp<BR>
+				</div>
+
+				<div ID="Gallery" onMouseover="keepMenu();" CLASS="menubox">
+					<a CLASS="menutext" HREF="/aboutbcfpd/photo_gallery/photos/intro.asp">&nbsp;&nbsp;Photos&nbsp;&nbsp;</a>&nbsp;&nbsp<BR>
+					<a CLASS="menutext" HREF="/aboutbcfpd/photo_gallery/videos/intro.asp">&nbsp;&nbsp;Videos&nbsp;&nbsp;</a>&nbsp;&nbsp<BR>
+				</div>
+<%	end if %>
+
+

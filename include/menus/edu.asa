@@ -1,0 +1,104 @@
+<table cellspacing="0" cellpadding="0" height="100%" border="0" bordercolor="orange">
+	<tr>
+		<td colspan="2" align="center" height="16" width="584">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" bordercolor="orange">
+				<tr>
+
+
+<!--*****************************
+Newer Netscape 4 Code
+********************************* -->
+
+<%if MyBrowser = "Netscape4" then %>
+					
+					<td align="left"><a HREF="/edu/" onMouseover="Display('Lessons', 200, 133)" OnMouseOut="Hide('Lessons')"><IMG SRC="/images/lessons.jpg" border="0" width="60" height="16"></a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="584">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td align="left">
+						
+							
+						<layer id="Lessons" width="130" z-index="3" bgcolor="#330099" visibility="hidden" OnMouseOver="Display('Lessons')" OnMouseOut="Hide('Lessons')">
+							<a CLASS="menutext" HREF="/edu/vehicle_fires/">&nbsp;&nbsp;Vehicle Fires</a> <br>
+							<a CLASS="menutext" HREF="/edu/">&nbsp;&nbsp;Lesson 2</a> <br>
+						</layer>
+
+
+
+
+<!--*****************************
+Newer Netscape Code
+********************************* -->
+<%elseif MyBrowser = "AnyNetscape" then %>
+					<td align="left"><a HREF="/edu/" onMouseover="Display('Lessons', 200, 132)" OnMouseOut="Hide('Lessons')"><IMG SRC="/images/lessons.jpg" border="0" width="60" height="16"></a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="584">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="StartMenu" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+					
+					<div ID="Lessons" onMouseover="Display('Lessons')" OnMouseOut="Hide('Lessons')" CLASS="menubox">
+							&nbsp;<a CLASS="menutext" HREF="/edu/vehicle_fires/">Vehicle Fires</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="/edu/">Lesson 2</a>&nbsp;&nbsp;<br>
+					</div>
+					
+<!--*****************************
+Other Browsers
+********************************* -->
+<%else %>
+					<td align="left"><a onMouseover="Display('Lessons', 105, 118)" HREF="/edu/"><IMG SRC="/images/lessons.jpg" border="0" width="60" height="16"></a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="584">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="StartMenu" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+
+				<div ID="Lessons" onMouseover="keepMenu();" CLASS="menubox">
+					<a CLASS="menutext" HREF="/edu/vehicle_fires/">&nbsp;&nbsp;Vehicle Fires&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;EMS Incidents&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;Vehicle Accident with Injuries&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;Vehicle Accidents with Extrication&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;Mass Casualty Incidents&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;Natural Cover Fires&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;Flue Fires&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;Residential Structure Fires&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;Commercial Structure Fires&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;Hazardous Materials Incidents&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;Clandestine Drug Labs&nbsp;&nbsp;</a><br>
+					<a CLASS="menutext" href="/edu/">&nbsp;&nbsp;Bomb Threats/Device Incidents&nbsp;&nbsp;</a><br>
+				</div>
+<%	end if %>
+
+

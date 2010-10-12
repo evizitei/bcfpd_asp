@@ -1,0 +1,4 @@
+				<div id="navBar">
+					<div id="nav1"><%If backPage <> "none" Then%><a class="navbar" href="<%=backPage%>">back</a><%End If%></div>
+					<div id="nav2"><%If nextPage <> "none" Then%><a class="navbar" href="<%=nextPage%>">next</a><%End If%></div>
+				</div>

@@ -1,0 +1,72 @@
+<%
+Public Function GetVal(frmItem, retVal)
+'Author: Chris Ellingsworth
+'(c) LANIT Consulting
+'Purpose:Get form or Querystring values
+	If Request.Form(frmItem) <> "" Then
+		GetVal = Request.Form(frmItem)
+	ElseIf Request.QueryString(frmItem) <> "" Then
+		GetVal = Request.QueryString(frmItem)
+	Else
+		GetVal = retVal
+	End If
+
+End Function
+
+Public Function GetNextRank(CurrentRank)
+	Select Case CurrentRank
+		Case "BEGINNER"
+			GetNextRank = "ROOKIE"
+		Case "ROOKIE"
+			GetNextRank = "FIREFIGHTER"
+		Case "FIREFIGHTER"
+			GetNextRank = "ENGINEER"
+		Case "ENGINEER"
+			GetNextRank = "LIEUTENANT"
+		Case "LIEUTENANT"
+			GetNextRank = "CAPTAIN"
+		Case "CAPTAIN"
+			GetNextRank = "BATTALION_CHIEF"
+		Case "BATTALION_CHIEF"
+			GetNextRank = "ASSISTANT_CHIEF"
+		Case "ASSISTANT_CHIEF"
+			GetNextRank = "FIRE_CHIEF"
+		Case "FIRE_CHIEF"
+			GetNextRank = "BEGINNER"
+		Case else
+			GetNextRank = "BEGINNER"
+	End Select
+End Function
+
+Public Function GoToNextLesson(Rank)
+	Select Case Rank
+		Case "BEGINNER"
+			Response.Redirect "beginner.asp"
+		Case "ROOKIE"
+			Response.Redirect "rookie.asp"
+		Case "FIREFIGHTER"
+			Response.Redirect "firefighter.asp"
+		Case "ENGINEER"
+			Response.Redirect "engineer.asp"
+		Case "LIEUTENANT"
+			Response.Redirect "lieutenant.asp"
+		Case "CAPTAIN"
+			Response.Redirect "captain.asp"
+		Case "BATTALION_CHIEF"
+			Response.Redirect "batallion_chief.asp"
+		Case "ASSISTANT_CHIEF"
+			Response.Redirect "assistant_chief.asp"
+		Case "FIRE_CHIEF"
+			Response.Redirect "beginner.asp"
+		Case else
+			Response.Redirect "index.asp"
+	End Select
+End Function
+
+%>
+<script language="javascript">
+	function SubmitForm(ElementValue){
+		document.sk.Submit.value = ElementValue;
+		document.sk.submit();
+	}
+</script>

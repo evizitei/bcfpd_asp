@@ -1,0 +1,41 @@
+<%
+	
+	'Response.Write(Request.Cookies("CurrentRank"))
+	Dim PassGrade
+	Dim QuestionCounter
+	Dim Pass
+	Dim NumberofCorrect
+	Dim CurrentRank
+	Dim NewRank
+	PassGrade = .79
+	QuestionCounter = 0
+	Pass = true
+	NumberofCorrect = 0
+	CurrentRank = Request.Cookies("CurrentRank")
+
+	if Request.Form("submit") = "Submit" then
+		For each item in Request.Form
+			'Response.Write(Request.form(item) & "<br>")
+			if Request.form(item) <> "Submit" then
+				QuestionCounter = QuestionCounter + 1
+				if Request.form(item) = "true" then 
+					NumberofCorrect = NumberofCorrect + 1	
+				end if 
+			end if
+		next
+		'Response.Write("QuestionCounter: " & QuestionCounter & "<br>")
+		'Response.Write("NumberofCorrect: " & NumberofCorrect & "<br>")
+		'Response.Write(NumberofCorrect / Questioncounter)
+		if NumberofCorrect <> 0 then 
+			if (NumberofCorrect / Questioncounter) >= PassGrade then
+				NewRank = GetNextRank(CurrentRank)
+				Response.Cookies("CurrentRank").Expires = "December 31, 2020"
+				Response.Cookies("CurrentRank").Domain = Request.ServerVariables("Server_Name")
+				'Response.Cookies("CurrentRank").Domain = "12.10.125.18"
+				'Response.Cookies("CurrentRank").Domain = "192.168.222.74"
+				Response.Cookies("CurrentRank") = NewRank
+				GoToNextLesson(NewRank)
+			end if
+		end if
+	end if
+%>

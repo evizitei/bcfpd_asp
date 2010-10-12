@@ -1,0 +1,12 @@
+<%
+
+Set cnnMain = Server.CreateObject("ADODB.Connection")
+Set cnnBCFPD = Server.CreateObject("ADODB.Connection")
+
+strConn = "Provider=SQLOLEDB.1;UID=webreader; PWD=26r76B2Zt; Initial Catalog=bcfdmo; Data source=fh.bcfdmo.com"  
+
+cnnMain.open strConn
+cnnBCFPD.open strConn
+
+
+%>

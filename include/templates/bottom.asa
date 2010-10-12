@@ -1,0 +1,27 @@
+											&nbsp;
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td valign="bottom" width="100%" height="59" bgcolor="black"><img SRC="/images/spacer.gif" width="503" height="5" bordercolor="#000000" border="0"><br><b><font size="1" color="#666666">®<%=year(now) %> Boone County Fire Protection District, Columbia, Missouri</font><b></td>
+								<td valign="bottom" width=81 height="59" bgcolor="black"><a href="/members_only/index.asp"><img SRC="/images/bottom_template/Memberareasignin.gif" border="0" width="81" height="59"></a></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>								
+</table>
+</body>
+<%	if AnyMac = true then	%>
+<script language="javascript">
+<!--#include virtual="/include/menus/menu.js"-->
+</script>
+<%	else %>
+<script language="JavaScript" src="/include/menus/menu.js">
+</script>
+<%	end if%>
+</html>

@@ -1,0 +1,19 @@
+					<ul>
+						<li<%If currentPage="1.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/">1. Introduction</a></li>
+						<li<%If currentPage="2.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/2.asp">2. Objectives</a></li>
+						<li<%If currentPage="3.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/3.asp">3. Response</a></li>
+						<li<%If currentPage="4.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/4.asp">4. Arrival</a></li>
+						<li<%If currentPage="5.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/5.asp">5. Scene Management</a></li>
+						<li<%If currentPage="6.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/6.asp">6. Size-up</a></li>
+						<li<%If currentPage="7.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/7.asp">7. Scene Management Issues</a></li>
+						<li<%If currentPage="8.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/8.asp">8. Develop a Fire Attack Plan</a></li>
+						<li<%If currentPage="9.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/9.asp">9. On-going Scene Management Considerations</a></li>
+						<li<%If currentPage="10.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/10.asp">10. Safety Issues</a></li>
+						<li<%If currentPage="11.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/11.asp">11. Demobilization</a></li>
+						<li<%If currentPage="12.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/12.asp">12. Manage This Incident - 1</a></li>
+						<li<%If currentPage="13.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/13.asp">13. Manage This Incident - 2</a></li>
+						<li<%If currentPage="14.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/14.asp">14. Manage This Incident - 3</a></li>
+						<li<%If currentPage="15.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/15.asp">15. Manage This Incident - 4</a></li>
+						<li<%If currentPage="16.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/16.asp">16. Manage This Incident - 5</a></li>
+						<li<%If currentPage="17.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/17.asp">17. Standard Outcomes</a></li>
+					</ul>

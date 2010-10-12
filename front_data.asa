@@ -1,0 +1,263 @@
+<!--#include virtual="/include/constants/database.asa"-->
+<%
+public function stripQuotes(strWords) 
+	stripQuotes = replace(strWords, "'", "''")
+end function 
+
+public function killChars(strWords) 
+	dim badChars 
+	dim newChars 
+
+	badChars = array("SELECT", "DROP", ";", "--", "INSERT",	"DELETE", "XP_") 
+	newChars = Ucase(stripQuotes(strWords))
+
+	for i = 0 to uBound(badChars) 
+		newChars = replace(newChars, badChars(i), "") 
+	next 
+
+	killChars = newChars 
+	
+end function 
+
+Public Sub GetNews
+	'News for front page
+	strSQL = "bcfpdwebuser.spGetFeaturedNewsArticle 1, 1, '" & Date() & "','" & Date() & "'"
+	set rsNews = cnnBCFPD.execute(strSQL)
+	
+	if not rsNews.eof then
+	NewsStory = Replace(rsNews("Story"), vbCR, "<br>")
+%>
+	<table cellpadding="2" cellspacing="3" cellpadding="2" border="0" width="100%">
+		<tr>
+			<td valign="top" height="300">
+			<strong><%=rsNews("Headline")%></strong><br>
+			<font size="1"><i><%=rsNews("Author")%>&nbsp;-&nbsp;<%=FormatDateTime(rsNews("PubDate"), vbLongDate)%></i></font>
+			<p class="CoverStory">
+			<%if rsNews("Image1") <> "" then %>
+				<span>
+					<img name="Image1" id="Image1" src="/images/news/<%=server.URLPathEncode(rsNews("Image1"))%>" border="3" onload="CheckSize(this);">
+			
+			<%	if rsNews("Image2") <> "" then %>
+					<br><img name="Image2" id="Image2" src="/images/news/<%=server.URLPathEncode(rsNews("Image2"))%>" border="3" onload="CheckSize(this);">
+			<%	end if%>
+				</span>
+				<%	' 3. A loop that shortens the story followed by "...".
+						'Do a loop to step through the string one character at a time.
+						'The For Loop goes from character "1" to the Length of the "Story" field.
+						For i = 1 to Len(NewsStory)
+							CurrentCharacter = Mid(NewsStory, i, 1)
+						
+							' 4. If the CurrectCharacter isn't blank and the blank character counter
+							'is less than 10, output the character to the screen.
+							If CurrentCharacter <> " " And x < 200 Then
+											
+								Response.Write CurrentCharacter
+												
+							' 5. If the blank counter is 8, output "..." to the screen and exit the For Next Loop.
+							'Else, write a blank and increment the blank counter by one.
+							Else
+								If x = 200 Then
+									Response.Write "..."
+									Exit For
+								Else	
+									Response.Write " "
+									x = x + 1
+								End If	
+							End if								
+						Next
+				%>
+				
+			<%else%>
+				<%=replace(left(NewsStory, 650), "&nbsp;","")%>...
+			<%end if%>
+			</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="NewsLink" align="right"><a href="/bcfpdnews/">More News..</a><p>
+			</td>
+		</tr>
+	</table>
+<%	else%>
+	<table cellpadding="2" cellspacing="0" border="0" width="100%">
+		<tr>
+			<td><font size="2" color="#CC0000">We do not have a Cover Story at this time.
+				Please check back later after we have updated this area.</font>
+			</td>
+		</tr>
+	</table>
+<%	end if
+	rsNews.Close 
+
+End Sub
+
+Public Sub News(News_Cat, News_ID)
+	'News For Every other page
+	If Request.ServerVariables("Script_Name") = "" Then
+		PageName = "index.asp"
+	Else
+		PageName = Request.ServerVariables("Script_Name")
+	End If
+
+	Set rsHead = Server.CreateObject("ADODB.Recordset")
+
+	If News_ID = "" Then
+		strSQL = "bcfpdwebuser.spGetNewsByCategoryID " & News_Cat 	
+		set rsNews = cnnBCFPD.execute(strSQL)
+
+        strSQL = "bcfpdwebuser.spGetNewsHeadlinesByCategoryID " & News_Cat & ", 0"
+		set rsHead = cnnBCFPD.execute(strSQL)
+		
+	Else
+		strSQL = "bcfpdwebuser.spGetNewsByID " & News_ID 	
+		set rsNews = cnnBCFPD.execute(strSQL)
+	    
+		strSQL = "bcfpdwebuser.spGetNewsSideStories " & News_Cat & ", " &  News_ID	
+		set rsHead = cnnBCFPD.execute(strSQL)	    
+
+		If Not rsNews("Feature") Then
+			%><!--<br><a href="javascript:history.back();"><font size="1">back</font></a>--><%
+		End IF
+	End If
+	
+	If Not rsNews.EOF Then
+%>
+		<script language="JavaScript">
+			function CheckSize(theImage) {
+				if (theImage.width > 300) {
+					theImage.width = 300;
+				}
+			}
+		</script>
+		<br><br>
+		<table cellpadding="2" cellspacing="0" border="0" width="100%">
+			<tr>
+				<td valign="top"><strong><%=rsNews("Headline")%></strong><br>
+					<font size="1"><i><%=rsNews("Author")%>&nbsp;-&nbsp;<%=FormatDateTime(rsNews("PubDate"), vbLongDate)%></i></font>
+					<p>
+					<font size="2">
+					<%=Replace(rsNews("Story"), vbCR, "<br>")%>
+					</font>
+				</td>
+				<td valign="top">
+					<%If rsNews("Image1") <> "" Then%>
+						<center>
+						<table width="205" cellspacing="0" cellpadding="3" border="0">
+							<tr>
+								<td align="center"><img border="3" name="Image" src="/images/news/<%=server.URLPathEncode(rsNews("Image1"))%>" onload="CheckSize(this);"></td>
+							</tr>
+							<tr>
+								<td align="center" class="caption"><%=rsNews("Image1_Caption")%></td>
+							</tr>
+						</table>
+						</center>
+					<%End If%>
+					<p>
+					<%If rsNews("Image2") <> "" Then%>
+						<center>
+						<table width="205" cellspacing="0" cellpadding="3" border="0">
+							<tr>
+								<td align="center"><img border="3" name="Image" src="/images/news/<%=server.URLPathEncode(rsNews("Image2"))%>" onload="CheckSize(this);"></td>
+							</tr>
+							<tr>
+								<td align="center" class="caption"><%=rsNews("Image2_Caption")%></td>
+							</tr>
+						</table>
+						</center>
+					<%End If%>
+					</p>
+					<p>
+					<%If Not rsHead.EOF and News_Cat <> "5" Then%>
+					<table border="0" width="200" cellpadding="0" cellspacing="0">
+						<tr>
+							<td>&nbsp;&nbsp;&nbsp;</td>
+							<td><font size="2"><i>More Stories</i></font></td>
+						</tr>
+						<%Do While Not rsHead.EOF%>
+						<tr>
+							<td>&nbsp;&nbsp;&nbsp;</td>
+							<td><a class="News" href="<%=PageName%>?News_ID=<%=rsHead("News_ID")%>"><font size="1"><%=rsHead("Headline")%></font></a><br><br></td>
+						</tr>
+						<%rsHead.MoveNext
+						Loop%>
+					</table>
+					<%End If%>
+					</p>
+				</td>
+			</tr>
+		</table>
+<%
+	else
+		if News_Cat = 3 then%>
+		<table cellpadding="2" cellspacing="0" border="0" width="100%">
+			<tr>
+				<td><font size="2" color="#CC0000">We do not have any Wildland News at this time.
+					Please check back later after we have updated this area.</font>
+				</td>
+			</tr>
+		</table>
+	<%	elseif News_Cat = 4 then%>
+		<table cellpadding="2" cellspacing="0" border="0" width="100%">
+			<tr>
+				<td><font size="2" color="#CC0000">We do not have an Official Release to the media at this time.
+					Please check back later after we have updated this area.</font>
+				</td>
+			</tr>
+		</table>
+	<%	end if
+	
+	End If
+End Sub
+
+Public Sub GetHotSpot
+'Hot Topic for Front Page
+
+strSQL = "bcfpdwebuser.spGetNewsHeadlinesByCategoryID 5, 1"
+set rsNews = cnnBCFPD.execute(strSQL)
+
+%>
+
+<%if not rsNews.eof then%>
+<table border="0" width="100%" bgcolor="#CC0000" cellspacing="3" cellpadding="2" >
+	<tr>
+	  <td colspan="2" class="HotSpotTitle" ><%=rsNews("Headline")%></td>
+	</tr>
+	<tr>
+	  <td valign="top">
+	<%	if rsNews("Image1") <> "" then %>
+			<img border="0" src="/images/news/<%=server.URLPathEncode(rsNews("Image1"))%>">
+	<%	end if%>
+	<p>
+	<%	if rsNews("Image2") <> "" then %>
+			<img border="0" src="/images/news/<%=server.URLPathEncode(rsNews("Image2"))%>">
+	<%	end if%>
+
+	  </td>
+	  <td class="HotSpot" valign="top"><em><%=rsNews("PubDate")%></em><br>
+		<%if rsNews("Image1") <> "" then
+			Response.Write(left(replace(rsNews("Story"), vbcr, "<br>"), 295) & " ...")
+		else
+			Response.Write(left(replace(rsNews("Story"), vbcr, "<br>"), 610))
+		end if%>
+	</td>
+	</tr>
+	<tr>
+	    <td class="NewsLink" align="right" colspan="2"><a href="/bcfpdnews/index.asp?HotTopic=True">More...</a></td>
+	</tr>
+</table>
+<%else%>
+	<table width="317" bgcolor="#CC0000" cellpadding="2" cellspacing="0" border="0">
+		<tr>
+			<td height="126"><font size="2" color="white">We do not have anything to report in the Hot Spot at this time.
+				Please check back later after we have updated this area.</font>
+			</td>
+		</tr>
+	</table>
+<%end if%>
+
+<%
+rsNews.Close
+
+End Sub
+
+%>

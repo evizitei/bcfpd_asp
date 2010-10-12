@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="en">
+<head>
+<title><%=pageTitle%></title>
+<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="expires" content="-1">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="author" content="Jamie Stephens">
+		<meta name="copyright" content="Boone County Fire Protection District">
+		<link rel="home" title="Home" href="http://www.bcfdmo.com">
+		
+		<script type="text/javascript" src="/edu/style/edu.js"></script>
+
+<script type="text/javascript">
+
+<!--//--><![CDATA[//><!--
+startList = function() {
+	var navRoot = document.getElementById("nav").getElementsByTagName("LI");
+	for (var i=0; i<navRoot.length; i++) {
+		navRoot[i].onmouseover=function() {
+			this.className+=" over";
+		}
+		navRoot[i].onmouseout=function() {
+			this.className=this.className.replace(new RegExp(" over"), "");
+		}
+	}
+}
+if (window.attachEvent) window.attachEvent("onload", startList); 
+//--><!]]>
+</script>
+
+<LINK rel="stylesheet" type="text/css" href="http://www.bcfdmo.com/edu/style/edu2.css">
+
+</head>
+<body>
+<div id="container">
+<div id="header">
+<h1><%=pageTitle%></h1>
+<ul id="nav">
+	<li id="first">
+	<div><a href="">Table of Contents</a></div>
+		<ul>
+			<li<%If currentPage="1.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/">Introduction</a></li>
+	<li<%If currentPage="2.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/2.asp">Objectives</a></li>
+	<li<%If currentPage="3.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/3.asp">Response</a></li>
+	<li<%If currentPage="4.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/4.asp">Arrival</a></li>
+	<li<%If currentPage="5.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/5.asp">Scene Management</a></li>
+	<li<%If currentPage="6.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/6.asp">Size-up</a></li>
+	<li<%If currentPage="7.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/7.asp">Scene Management Issues</a></li>
+	<li<%If currentPage="8.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/8.asp">Develop a Fire Attack Plan</a></li>
+	<li<%If currentPage="9.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/9.asp">On-going Scene Management Considerations</a></li>
+	<li<%If currentPage="10.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/10.asp">Safety Issues</a></li>
+	<li<%If currentPage="11.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/11.asp">Demobilization</a></li>
+	<li<%If currentPage="12.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/12.asp">Manage This Incident - 1</a></li>
+	<li<%If currentPage="13.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/13.asp">Manage This Incident - 2</a></li>
+	<li<%If currentPage="14.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/14.asp">Manage This Incident - 3</a></li>
+	<li<%If currentPage="15.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/15.asp">Manage This Incident - 4</a></li>
+	<li<%If currentPage="16.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/16.asp">Manage This Incident - 5</a></li>
+	<li<%If currentPage="17.asp" Then%> id="selected"<%End If%>><a href="/edu/vehicle_fires/17.asp">Standard Outcomes</a></li>
+
+
+
+
+
+
+			
+		</ul>
+	</li>
+
+	
+
+
+</ul>
+			</div>
+			<div id="content"><a name="content"></a>
+				
+				<div id="column1">
+				<!--#include virtual="/edu/templates/nav.asa"-->

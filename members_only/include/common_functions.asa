@@ -1,0 +1,115 @@
+<script language="JavaScript">
+	/*
+	Author: David Stephens
+	(c) LANIT Consulting
+	Function to test whether user selected an option from a drop down box.
+	Function recieves two parameters.
+	frmValue is the value of the element
+	Message is any information that you want to display to the user
+	*/
+	function Validate(frmValue, Message){
+		if(frmValue == 0) {
+			alert(Message);
+			return false;
+		}
+	}
+</script>
+
+<script language="JavaScript">
+	/*
+	Author: David Stephens
+	(c) LANIT Consulting
+	Function to test whether user has answered all required fields.
+	Required field names must end with "req"
+	Function recieves two parameters.
+	arrElements is an array of the form's elements
+	Message is any information that you want to display to the user
+	*/
+	function ValidateApp(arrElements, Message){
+	var Arrlength; //Total number of form elements
+	var NameLen; //Number of characters in element name
+	var ElemName; //Name of element
+	ArrLength = arrElements.length;
+		for(x=0;x<ArrLength;x++) {
+			NameLen = arrElements[x].name.length;
+			ElemName = arrElements[x].name;
+			if((ElemName.substring(NameLen, NameLen - 3) == "req") && (arrElements[x].value == "")) {
+				alert(Message + ElemName.slice(0, -3));
+				return false;
+			}
+		}
+		return true;
+	}
+</script>
+
+<script language="JavaScript">
+	/*
+	Author: David Stephens
+	(c) LANIT Consulting
+	This function deletes records from current form
+	*/
+	function Delete() {
+		if (confirm("Are you sure that you want to delete these items?")){
+			document.form2.submit();
+		}
+	
+	}
+</script>
+
+<script language="JavaScript">
+	/*
+	Author: David Stephens
+	(c) LANIT Consulting
+	This function deletes records from current form
+	*/
+	function DeletePlus(theform, value) {
+		if (confirm("Are you sure that you want to delete these items?")){
+			theform.Submit.value = value;
+			theform.submit();
+		}
+	
+	}
+</script>
+
+<script language="javascript">
+	/*
+	Author: David Stephens
+	(c) LANIT Consulting
+	This function changes the value of a form's Submit Button and then
+		submits the form.
+	*/
+	function submit(theform, value) {
+		theform.Submit.value = value
+		theform.submit();
+	}
+</script>
+
+<script language="javascript">
+	/*
+	Author: David Stephens
+	(c) LANIT Consulting
+	This function calls the ValidateApp function. If the form is filled out
+		correctly, the value of a form's Submit Button changes and then
+		the form is submitted.
+	*/
+	function submitPlus(theform, value) {
+		if(ValidateApp(theform.elements, 'You must enter a ')) {
+			theform.Submit.value = value;
+			theform.submit();
+		}
+	}
+</script>
+
+<script language="javascript">
+
+	function VerifyFileSelected(theForm) {
+		
+		if(theForm.ImageFile.value == '') {
+			alert('You must select a file before you can add it to the list.');
+		}
+		else {
+			theForm.submit();
+		}
+		
+	}
+</script>

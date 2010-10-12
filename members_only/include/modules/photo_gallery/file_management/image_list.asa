@@ -1,0 +1,165 @@
+
+<%
+Public Sub ManageImage(ImgDirectory, VirtualDirectory)
+'This procedure displays a list of images for a directory where they can be added, previewed or deleted
+'This procedure requires two parameters:
+'1. ImgDirectory is the complete mapped path of the directory where the images are stored
+'		example--> "d:\commerce sites\fnb\images\about\banker_spotlight"
+'2.	VirtualDirectory is the virtual path of the directory
+'		example--> "\images\about\banker_spotlight"
+'Author: David Stephens
+'Copyright LANIT Consulting
+'
+'Declarations
+
+	Set fs = CreateObject("Scripting.FileSystemObject")
+	set rsLibraryCat = Server.CreateObject("ADODB.Recordset")
+	set rsLibrary = Server.CreateObject("ADODB.Recordset")
+	
+	'rsLibrary.Open "SELECT * FROM Library_File", cnnMain,3,3 
+	'Do while not rsLibrary.EOF 
+	'	rsLibrary.Delete
+	'	rsLibrary.MoveNext 
+	'loop 
+		'rsLibrary.Update 
+	'rsLibrary.Close 
+
+	'NumOfCats = rsLibraryCat.RecordCount
+	'Response.Write(NumOfCats)
+	'ReDim ImgCatArray(NumOfCats)
+	'Dim ArrayCounter
+	'ArrayCounter = 0
+
+	'do while not rsLibraryCat.EOF
+	'	ImgCatArray(ArrayCounter) = rsLibraryCat("Name")
+	'	rsLibraryCat.MoveNext 
+	'	ArrayCounter = ArrayCounter + 1
+	'loop
+	
+	'rsLibraryCat.Close 
+	
+	'Dim Color
+	Dim Counter
+
+
+	for each item in Request.Form("Delete")
+		if left(item,1) <> "_" then
+			rsLibrary.Open "SELECT * FROM Library_File WHERE Name = '" & item & "'", cnnMain,3,3 
+			if not rsLibrary.EOF then
+				rsLibrary.Delete 
+			'rsLibrary.Update 
+			end if
+			rsLibrary.Close 
+			'Response.Write(ImgDirectory)
+			fs.DeleteFile(ImgDirectory & "\" & item)			
+		end if
+	next
+
+	%>
+
+
+	<form method="POST" action=""<%=Request.ServerVariables("SCRIPT_NAME")%>"" id=form1 name=form1>
+		<table border="0" cellpadding="0" cellspacing="0">
+		  <tr>
+		    <td></td>
+		    <td>
+		      <table border="0" cellpadding="5" cellspacing="0" bordercolor="#f2f2f2">
+				<tr>
+					<td  class="subheadercenter">Delete</td>
+					<td  class="subheadercenter">Library File</td>
+					<td class="subheadercenter">Description</td>
+					<td class="subheadercenter">View</td>
+					<td class="subheadercenter">Type/Size</td>
+					<td  class="subheadercenter">Category</td>
+				</tr>
+	<%
+	If Not fs.FolderExists(ImgDirectory) Then
+	   	'response.write(ImgDirectory)
+		fs.CreateFolder ImgDirectory
+	End If
+
+	Set f = fs.GetFolder(ImgDirectory & "\")
+	Set fc = f.Files
+
+	Color = "#F6E2C1"
+	Counter = 1
+	
+	If Request.Form("Submit") = "Save" then
+		rsLibrary.Open "SELECT * FROM Library_File ORDER BY Name", cnnBCFPD,3,3 
+		For each item in Request.Form("Category")
+			
+			rsLibrary("Library_Category_ID") = item
+			rsLibrary.Update
+			rsLibrary.MoveNext 
+		next
+		rsLibrary.close
+		
+		rsLibrary.Open "SELECT * FROM Library_File ORDER BY Name", cnnMain,3,3 
+		For each item in Request.Form("Description")
+			rsLibrary("Description") = item
+			rsLibrary.Update
+			rsLibrary.MoveNext 
+		next
+		rsLibrary.close
+	end if
+	
+	
+			For Each Item in fc
+			rsLibrary.Open "SELECT * FROM Library_File WHERE Name = '" & Item.name & "'", cnnMain,3,3 
+			if rsLibrary.EOF then
+				rsLibrary.AddNew 
+				rsLibrary("Name") = Item.name
+				rsLibrary("File_Size") = cint(Item.size/1024)
+				rsLibrary("File_Type") = item.type
+				rsLibrary.Update
+			end if
+			
+			rsLibraryCat.Open "SELECT * FROM Library_Category ORDER BY Name ASC", cnnMain,3  %>
+			
+				<tr>
+					<td align="center"><INPUT type="checkbox" id=checkbox1 name="Delete" value="<%=Item.name%>"></td>
+					<td ><font size="1"><%=Counter & ". " & Item.name%></font></td>
+					<td><TEXTAREA rows=3 maxlength="8000" cols=10 id=textarea1 name="Description"><%=rsLibrary("Description")%></TEXTAREA></td>
+					<td align="center"><a class="update" href="<%=VirtualDirectory & "\" & Item.name%>" target="_new">View File</a></td>
+					<td align="center"><font size="1"><%=Item.type%>(<%=cint(Item.size/1024)%>) KB</font></td>
+					<td align="center"><SELECT id=select1 name="Category">
+													<option value="0">Choose a Category...</option>
+											<%	Do while not rsLibraryCat.EOF %>													<OPTION value="<%=rsLibraryCat("Category_ID")%>" <%if rsLibraryCat("Category_ID") = rsLibrary("Library_Category_ID") then %>selected<%end if%>><%=rsLibraryCat("Name")%></OPTION>											<%		rsLibraryCat.MoveNext 												loop 												rsLibraryCat.Close %>
+										</SELECT>
+					</td>
+				</tr>
+	<%
+				'If Color = "#F6E2C1" then
+				'	Color = "Whitesmoke"
+				'else
+				'	Color = "#F6E2C1"
+				'end if 
+				Counter = Counter + 1
+			'Response.Write(rsLibrary("Name"))
+			rsLibrary.close
+			Next
+
+
+
+	%>
+				<tr>
+					<td align="right" colspan="6">
+					<a href="javascript:submit(document.form1, 'Save');"><img SRC="/images/members/buttons/Save.gif" border="0" width="45" height="34"></a>
+					<img src="/images/spacer.gif" border="0" height="1" width="35">
+					<a style="cursor: hand" OnClick='window.open("/members_only/include/modules/photo_gallery/file_management/file_upload/browse.asp?Path=<%=server.URLPathEncode(VirtualDirectory)%>")' name="Add_Video"><img SRC="/images/members/buttons/add.gif" border="0" width="45" height="34"></a>
+					<img src="/images/spacer.gif" border="0" height="1" width="35">
+					<a href="javascript:DeletePlus(document.form1, 'Delete Selected Files');"><img SRC="/images/members/buttons/Delete.gif" border="0" width="45" height="34"></a>
+					<img src="/images/spacer.gif" border="0" height="1" width="35">
+					<a style="cursor: hand" OnClick="window.history.back();"><img src="/images/members/buttons/cancel.gif" border="0" width="45" height="34"></a>
+					<input type="hidden" name="Submit">
+					</td>
+				</tr>
+			</table>
+		 </td>
+		</tr>
+	</table>
+
+	</form>
+<%
+End Sub
+%>

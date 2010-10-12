@@ -1,0 +1,171 @@
+<Asx Version = "3.0" > 
+<Param Name = "IsMediaCollectionQueryResult" Value = "1" />
+
+<Param Name = "Name" Value = "All Audio" />
+
+<Param Name = "AllowShuffle" Value = "yes" />
+
+<Entry> 
+<Title > Midnight Vultures Sample</Title>
+
+<Param Name = "Name" Value = "Midnight Vultures Sample" />
+
+<Param Name = "Artist" Value = "Beck" />
+
+<Author > Beck</Author>
+
+<Param Name = "Album" Value = "Midnite Vultures" />
+
+<Param Name = "MediaType" Value = "audio" />
+
+<Param Name = "MediaAttribute" Value = "0" />
+
+<Param Name = "PlayCount" Value = "0" />
+
+<Param Name = "SourceURL" Value = "C:\My Documents\My Music\Beck.asx" />
+
+<Param Name = "CreationDate" Value = "8/12/01 7:34:42 PM" />
+
+<Ref href = "C:\My Documents\My Music\Beck.asx"/>
+</Entry>
+
+<Entry> 
+<Title > http://www.monmouth.com/~irishpiper/music/page22</Title>
+
+<Duration value = "00:00:46.000" />
+
+<Param Name = "Name" Value = "http://www.monmouth.com/~irishpiper/music/page22" />
+
+<Param Name = "MediaType" Value = "audio" />
+
+<Param Name = "MediaAttribute" Value = "0" />
+
+<Param Name = "PlayCount" Value = "0" />
+
+<Param Name = "SourceURL" Value = "http://www.monmouth.com/~irishpiper/music/page22.mid" />
+
+<Param Name = "CreationDate" Value = "8/15/01 3:51:25 PM" />
+
+<Ref href = "http://www.monmouth.com/~irishpiper/music/page22.mid"/>
+</Entry>
+
+<Entry> 
+<Title > http://www.monmouth.com/~irishpiper/music/music14</Title>
+
+<Duration value = "00:00:44.000" />
+
+<Param Name = "Name" Value = "http://www.monmouth.com/~irishpiper/music/music14" />
+
+<Param Name = "MediaType" Value = "audio" />
+
+<Param Name = "MediaAttribute" Value = "0" />
+
+<Param Name = "PlayCount" Value = "0" />
+
+<Param Name = "SourceURL" Value = "http://www.monmouth.com/~irishpiper/music/music14.mid" />
+
+<Param Name = "CreationDate" Value = "8/15/01 3:51:56 PM" />
+
+<Ref href = "http://www.monmouth.com/~irishpiper/music/music14.mid"/>
+</Entry>
+
+<Entry> 
+<Title > http://www.monmouth.com/~irishpiper/music/music19</Title>
+
+<Duration value = "00:01:48.000" />
+
+<Param Name = "Name" Value = "http://www.monmouth.com/~irishpiper/music/music19" />
+
+<Param Name = "MediaType" Value = "audio" />
+
+<Param Name = "MediaAttribute" Value = "0" />
+
+<Param Name = "PlayCount" Value = "0" />
+
+<Param Name = "SourceURL" Value = "http://www.monmouth.com/~irishpiper/music/music19.mid" />
+
+<Param Name = "CreationDate" Value = "8/15/01 3:52:11 PM" />
+
+<Ref href = "http://www.monmouth.com/~irishpiper/music/music19.mid"/>
+</Entry>
+
+<Entry> 
+<Title > http://www.monmouth.com/~irishpiper/music/music22</Title>
+
+<Duration value = "00:00:50.000" />
+
+<Param Name = "Name" Value = "http://www.monmouth.com/~irishpiper/music/music22" />
+
+<Param Name = "MediaType" Value = "audio" />
+
+<Param Name = "MediaAttribute" Value = "0" />
+
+<Param Name = "PlayCount" Value = "0" />
+
+<Param Name = "SourceURL" Value = "http://www.monmouth.com/~irishpiper/music/music22.mid" />
+
+<Param Name = "CreationDate" Value = "8/15/01 3:52:46 PM" />
+
+<Ref href = "http://www.monmouth.com/~irishpiper/music/music22.mid"/>
+</Entry>
+
+<Entry> 
+<Title > http://www.monmouth.com/~irishpiper/music/music20</Title>
+
+<Duration value = "00:01:8.000" />
+
+<Param Name = "Name" Value = "http://www.monmouth.com/~irishpiper/music/music20" />
+
+<Param Name = "MediaType" Value = "audio" />
+
+<Param Name = "MediaAttribute" Value = "0" />
+
+<Param Name = "PlayCount" Value = "0" />
+
+<Param Name = "SourceURL" Value = "http://www.monmouth.com/~irishpiper/music/music20.mid" />
+
+<Param Name = "CreationDate" Value = "8/15/01 3:53:01 PM" />
+
+<Ref href = "http://www.monmouth.com/~irishpiper/music/music20.mid"/>
+</Entry>
+
+<Entry> 
+<Title > http://www.monmouth.com/~irishpiper/music/music18</Title>
+
+<Duration value = "00:01:5.000" />
+
+<Param Name = "Name" Value = "http://www.monmouth.com/~irishpiper/music/music18" />
+
+<Param Name = "MediaType" Value = "audio" />
+
+<Param Name = "MediaAttribute" Value = "0" />
+
+<Param Name = "PlayCount" Value = "0" />
+
+<Param Name = "SourceURL" Value = "http://www.monmouth.com/~irishpiper/music/music18.mid" />
+
+<Param Name = "CreationDate" Value = "8/15/01 3:53:14 PM" />
+
+<Ref href = "http://www.monmouth.com/~irishpiper/music/music18.mid"/>
+</Entry>
+
+<Entry> 
+<Title > http://www.monmouth.com/~irishpiper/music/music35</Title>
+
+<Duration value = "00:00:50.000" />
+
+<Param Name = "Name" Value = "http://www.monmouth.com/~irishpiper/music/music35" />
+
+<Param Name = "MediaType" Value = "audio" />
+
+<Param Name = "MediaAttribute" Value = "0" />
+
+<Param Name = "PlayCount" Value = "0" />
+
+<Param Name = "SourceURL" Value = "http://www.monmouth.com/~irishpiper/music/music35.mid" />
+
+<Param Name = "CreationDate" Value = "8/15/01 3:53:24 PM" />
+
+<Ref href = "http://www.monmouth.com/~irishpiper/music/music35.mid"/>
+</Entry>
+</Asx>

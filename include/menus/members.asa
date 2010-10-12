@@ -1,0 +1,99 @@
+<table cellspacing="0" cellpadding="0" height="100%" border="0" bordercolor="orange">
+	<tr>
+		<td colspan="2" align="center" height="16" width="584">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" bordercolor="orange">
+				<tr>
+					<td align="center"><A class="NavLinks"  HREF="/services/support_services/" onMouseover="Display('Support', 118, 139)" OnMouseOut="Hide('Support')">Support Services</A></td>
+					<td align="center"><A class="NavLinks"  HREF="/services/facilities_equip_personnel/" onMouseover="Display('Facilities', 225, 139)">Facilities</A></td>
+					<td align="center"><A class="NavLinks"  HREF="/services/eps/" onMouseover="Display('Support', 282, 140)">EPS</A></td>
+					<td align="center"><A class="NavLinks"  HREF="/services/specialty_teams/" onMouseover="Display('Specialty', 317, 139)">Specialty Teams</A></td>
+					<td align="center"><A class="NavLinks"  HREF="/services/fire_suppression/" onMouseover="Display('Suppression', 425, 139)">Fire Suppression</A></td>
+					<td align="center"><A class="NavLinks"  HREF="/services/ems/" onMouseover="Display('Support', 526, 139)">EMS</A></td>
+					<td align="center"><A class="NavLinks"  HREF="/services/prevention_services/" onMouseover="Display('Support', 567, 139)">Prevention Services</A></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/about/Dottedspacer.gif" border="0" width="573" height="7"><img SRC="/images/spacer.gif" width="11" height="1" border="0"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="584">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td><p><br>
+
+<%	if MyBrowser = "Netscape4" then %>
+		<layer id='Support' bgcolor="#330099" width="158" z-index="3" visibility="hidden" OnMouseOver="Display('Support')" OnMouseOut="Hide('Support')">
+			<A CLASS='menutext'  HREF='../templates/source.htm'>&nbsp;&nbsp;Maintenance</A> <BR>
+			<A CLASS='menutext'  HREF='../templates/sql.htm'>&nbsp;&nbsp;Administration</A> <BR>
+			<A CLASS='menutext'  HREF='../templates/tip.htm'>&nbsp;&nbsp;Joint Communications</A> <BR>
+			<A CLASS='menutext'  HREF='../templates/download.htm'>&nbsp;&nbsp;Training</A> <BR>
+		</layer>
+			
+		<layer id='Facilities' width="130" z-index="3" bgcolor="#330099" visibility="hidden" OnMouseOver="Display('Facilities')" OnMouseOut="Hide('Facilities')">
+			<A CLASS='menutext'  HREF='/services/facilities_equip_personnel/apparatus/'>&nbsp;&nbsp;Apparatus</A> <BR>
+			<A CLASS='menutext'  HREF='/services/facilities_equip_personnel/personnel/'>&nbsp;&nbsp;Personnel</A> <BR>
+			<A CLASS='menutext'  HREF='/services/facilities_equip_personnel/stations/'>&nbsp;&nbsp;Stations</A> <BR>
+			<A CLASS='menutext'  HREF='/services/facilities_equip_personnel/support_facilities/'>&nbsp;&nbsp;Support Facilities</A> <BR>
+		</layer>
+			
+		<layer id='Specialty' width="130" z-index="3" bgcolor="#330099" visibility="hidden" OnMouseOver="Display('Specialty')" OnMouseOut="Hide('Specialty')">
+			<A CLASS='menutext' HREF='/services/specialty_teams/haz_mat/'>&nbsp;&nbsp;Hazardous Material</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/rescue/'>&nbsp;&nbsp;Rescue</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/dive/'>&nbsp;&nbsp;Dive</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/wildland/'>&nbsp;&nbsp;Wildland</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/wmd/'>&nbsp;&nbsp;Weapons of Mass Destruction</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/bike/'>&nbsp;&nbsp;Bike</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/investigation/'>&nbsp;&nbsp;Fire & Explosive Investigation</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/honor_guard/'>&nbsp;&nbsp;Honor Guard</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/peer_support/'>&nbsp;&nbsp;Peer Support</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/pipes_drums/'>&nbsp;&nbsp;Pipes & Drums</A> <BR>
+			<A CLASS='menutext'  HREF='/services/specialty_teams/communications/'>&nbsp;&nbsp;Communications</A> <BR>
+			<A CLASS='menutext'  HREF='/services/specialty_teams/overhead/'>&nbsp;&nbsp;Overhead Team</A> <BR>
+		</layer>
+<%	else %>
+		<div ID='StartMenu' STYLE='display:none; position:absolute;'></div>
+
+		<SCRIPT TYPE="text/javascript">
+			var AnimatedMenu = StartMenu;
+		</SCRIPT>
+
+		<div ID='Support' onMouseover='keepMenu();' CLASS='menubox'>
+			<A CLASS='menutext'  HREF='../templates/source.htm'>&nbsp;&nbsp;Maintenance</A> <BR>
+			<A CLASS='menutext'  HREF='../templates/sql.htm'>&nbsp;&nbsp;Administration</A> <BR>
+			<A CLASS='menutext'  HREF='../templates/tip.htm'>&nbsp;&nbsp;Joint Communications</A> <BR>
+			<A CLASS='menutext'  HREF='../templates/download.htm'>&nbsp;&nbsp;Training</A> <BR>
+		</div>
+
+		<div ID='Facilities' onMouseover='keepMenu();' CLASS='menubox'>
+			<A CLASS='menutext'  HREF='/services/facilities_equip_personnel/apparatus/'>&nbsp;&nbsp;Apparatus</A> <BR>
+			<A CLASS='menutext'  HREF='/services/facilities_equip_personnel/personnel/'>&nbsp;&nbsp;Personnel</A> <BR>
+			<A CLASS='menutext'  HREF='/services/facilities_equip_personnel/stations/'>&nbsp;&nbsp;Stations</A> <BR>
+			<A CLASS='menutext'  HREF='/services/facilities_equip_personnel/support_facilities/'>&nbsp;&nbsp;Support Facilities</A> <BR>
+		</div>
+
+		<div ID='Specialty' onMouseover='keepMenu();' CLASS='menubox'>
+			<A CLASS='menutext' HREF='/services/specialty_teams/haz_mat/'>&nbsp;&nbsp;Hazardous Material</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/rescue/'>&nbsp;&nbsp;Rescue</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/dive/'>&nbsp;&nbsp;Dive</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/wildland/'>&nbsp;&nbsp;Wildland</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/wmd/'>&nbsp;&nbsp;Weapons of Mass Destruction</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/bike/'>&nbsp;&nbsp;Bike</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/investigation/'>&nbsp;&nbsp;Fire & Explosive Investigation</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/honor_guard/'>&nbsp;&nbsp;Honor Guard</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/peer_support/'>&nbsp;&nbsp;Peer Support</A> <BR>
+			<A CLASS='menutext' HREF='/services/specialty_teams/pipes_drums/'>&nbsp;&nbsp;Pipes & Drums</A> <BR>
+			<A CLASS='menutext'  HREF='/services/specialty_teams/communications/'>&nbsp;&nbsp;Communications</A> <BR>
+			<A CLASS='menutext'  HREF='/services/specialty_teams/overhead/'>&nbsp;&nbsp;Overhead Team</A> <BR>
+		</div>
+
+		<div ID='Suppression' onMouseover='keepMenu();' CLASS='menubox'>
+			<A CLASS='menutext'  HREF='/services/fire_suppression/codes/'>&nbsp;&nbsp;Codes</A> <BR>
+			<A CLASS='menutext'  HREF='/services/fire_suppression/structural/'>&nbsp;&nbsp;Structural</A> <BR>
+			<A CLASS='menutext'  HREF='/services/fire_suppression/water_supply/'>&nbsp;&nbsp;Water Supply</A> <BR>
+			<A CLASS='menutext'  HREF='/services/fire_suppression/wildland/'>&nbsp;&nbsp;Wildland</A> <BR>
+		</div>
+<%	end if %>
+
+

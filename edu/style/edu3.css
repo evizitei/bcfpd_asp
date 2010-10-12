@@ -1,0 +1,347 @@
+/***************************************/
+/*Basic Styles*/
+/***************************************/
+
+body
+{
+	font-family: "trebuchet ms", verdana, helvetica, arial, sans-serif;
+	margin: 0px;
+	padding: 0px;
+	color: #000;
+	text-align: center;
+	background-color: #000;
+}
+
+
+body, p, td, th, ol, ul, input, select, option, textarea
+{
+	font-size: 11px;
+	line-height: 15px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link {
+	color: #000;
+}
+
+a:visited {
+	color: #790;
+}
+
+a:active {
+	color: red;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+blockquote
+{
+	color: pink;
+	line-height: 13px;
+	margin: 15px 25px;
+}
+
+blockquote p { line-height: 13px; }
+
+h1, h2, h3, h4, h5, h6
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+h1
+{
+	font-size: 18px;
+	font-weight: normal;
+	padding-bottom: 3px;
+	color: #ffffff;
+	margin: 5px;
+}
+
+h2
+{
+	font-size: 18px;
+	font-weight: normal;
+	padding-bottom: 3px;
+	margin: 10px 0px 10px 0px;
+}
+
+h3 { font-size: 14px; }
+h4 { font-size: 13px; }
+h5, h6 { font-size: 12px; }
+p { margin-top: 10px; }
+hr { display: none; }
+
+div.hr
+{
+	clear: both;
+	border-bottom: 1px solid #999;
+	margin: 10px 0;
+}
+
+#container
+{
+	width: 742px;
+	border: 1px solid #000;
+	margin: 20px auto;
+	background-color: #eeeeee;
+	overflow: visible;
+	voice-family: "\"}\"";
+	voice-family: inherit;
+}
+html>body #container { width: 740px; }
+
+#header
+{
+	text-align: left;
+	background-color: #1B00A1;
+	height: 30px;
+}
+
+#header img
+{
+	border: 0px;
+}
+
+column1 img
+{
+	border: 5px;
+	float: right;
+	width: 100;
+}
+
+#nav1
+{
+	float:left;
+	width: 100px;
+	position: relative;
+	z-index: 1;
+	padding-bottom:5px;
+
+}
+
+#nav2
+{
+	float: right;
+	text-align: right;
+	width: 500px;
+	position: relative;
+	z-index: 1;
+	padding-bottom:5px;
+
+}
+
+#navBar a
+{
+	color: #000000;
+	margin-right: 5px;
+	margin-left: 5px;	
+}
+#navBar a:hover
+{
+	color: #ff0000;
+	text-decoration: underline;
+}
+#navBar a:active
+{
+	color: #000000;
+}
+#navBar a:visited
+{
+	color: #000000;
+}
+
+
+
+#selected 
+{
+	background-color: #505050;
+}
+
+#content
+{
+	padding: 20px;
+	text-align:left;
+	line-height: 15px;
+	/*padding-left: 5%;
+	padding-right: 5%;	*/
+}
+
+#column1
+{
+	float: middle;
+	width: 742;
+	background-color: #fff;
+	border: 1px solid #bbbbbb;
+	padding: 10px;
+	height:500px;
+}
+
+
+#column2
+{
+	font-size: 11px;
+	float: left;
+	width: 160px;
+	padding: 10px;
+	background-color: #ffffff;
+	margin-bottom: 10px;
+	border: 1px solid #bbbbbb;
+	border-left: 0px;
+}
+html>body #column2 { width: 150px; }
+
+#column2 h3
+{
+	border-bottom: 1px solid #000;
+	margin-bottom: 3px;
+	font-weight: bold;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+#column2 h4
+{
+	font-size: 11px;
+	text-transform: uppercase;
+}
+
+#column2 p
+{
+	font-size: 11px;
+	margin: 0 0 20px 0;
+}
+
+#column2 ul
+{
+	list-style-type: none;
+	margin: 0px 0px 20px 0px;
+	padding: 0px;
+	font-size: 11px;
+}
+
+#column2 blockquote
+{
+	color: #333300;
+	line-height: 13px;
+	margin: 15px 10px;
+}
+
+
+#footer
+{
+	clear: both;
+	margin: 20px 20px 0px 20px;
+	padding: 8px 0px 15px 0px;
+	border-top: 1px solid #000;
+	text-align: left;
+}
+
+/************************************/
+/*Glossary Mouseover Styles			*/	
+/************************************/
+
+/*div#links {position: absolute; top: 81px; left: 0; width: 166px; height: 700px; font: 16px Verdana, sans-serif; z-index: 100;}*/
+div#links a {display: inline; text-decoration: none; }
+div#links a:hover {color: #411; background: #fff;}
+
+div#links a span {display: none;}
+div#links a:hover span {display: inline;
+   position: absolute; top: 200px; left: 200px; width: 200px;
+   padding: 5px; margin: 10px;
+   border: 1px solid #000;
+   z-index: 100; color: blue; background: #fff;
+   /*font: 10px Verdana, sans-serif; text-align: center;*/}
+
+/************************************/
+/*Drop-down Navigation Styles		*/	
+/************************************/	
+
+#nav {
+	BORDER-RIGHT: #ff0000 0px solid; z-index: 100; PADDING-RIGHT: 0px; BORDER-TOP: #ff0000 1px solid; PADDING-LEFT: 0px; FONT-WEIGHT: bold; BACKGROUND: #ff0000; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 1em; BORDER-LEFT: #ff0000 0px solid; WIDTH: 18em; LINE-HEIGHT: 1; PADDING-TOP: 0px; BORDER-BOTTOM: #ff0000 1px solid; LIST-STYLE-TYPE: none
+}
+#nav UL {
+	BORDER-RIGHT: #ff0000 0px solid; z-index: 100; PADDING-RIGHT: 0px; BORDER-TOP: #ff0000 1px solid; PADDING-LEFT: 0px; FONT-WEIGHT: bold; BACKGROUND: #ff0000; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 1em; BORDER-LEFT: #ff0000 0px solid; WIDTH: 18em; LINE-HEIGHT: 1; PADDING-TOP: 0px; BORDER-BOTTOM: #ff0000 1px solid; LIST-STYLE-TYPE: none
+}
+#nav A {
+	PADDING-RIGHT: 2em; DISPLAY: block; z-index: 100; PADDING-LEFT: 2em; PADDING-BOTTOM: 0.25em; WIDTH: 13.5em; COLOR: #ffffff; PADDING-TOP: 0.25em; TEXT-DECORATION: none
+}
+#nav A.daddy {
+	BACKGROUND: url('rightarrow.gif') no-repeat right center; 
+}
+#nav LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 5em; PADDING-TOP: 0px
+}
+#nav LI UL {
+	BORDER-TOP-WIDTH: 0.25em; FONT-WEIGHT: normal; BORDER-LEFT-WIDTH: 0.25em; LEFT: -999em; BORDER-BOTTOM-WIDTH: 0.25em; MARGIN: 0px; WIDTH: 14em; POSITION: absolute; HEIGHT: auto; BORDER-RIGHT-WIDTH: 0.25em
+}
+#nav LI LI {
+	PADDING-RIGHT: 1em; WIDTH: 8em
+}
+#nav LI UL A {
+	WIDTH: 12.5em
+}
+#nav LI UL UL {
+	MARGIN: -1.75em 0px 0px 14em
+}
+#nav LI:hover UL UL {
+	LEFT: -999em
+}
+#nav LI:hover UL UL UL {
+	LEFT: -999em
+}
+#nav LI.sfhover UL UL {
+	LEFT: -999em
+}
+#nav LI.sfhover UL UL UL {
+	LEFT: -999em
+}
+#nav LI:hover UL {
+	LEFT: auto
+}
+#nav LI LI:hover UL {
+	LEFT: auto
+}
+#nav LI LI LI:hover UL {
+	LEFT: auto
+}
+#nav LI.sfhover UL {
+	LEFT: auto
+}
+#nav LI LI.sfhover UL {
+	LEFT: auto
+}
+#nav LI LI LI.sfhover UL {
+	LEFT: auto
+}
+#nav LI:hover {
+	BACKGROUND: #1B00A1;
+}
+#nav LI.sfhover {
+	BACKGROUND: #1B00A1;
+}
+#content {
+	CLEAR: left
+}
+#content A {
+	COLOR: #ff0000
+}
+#content A:hover {
+	TEXT-DECORATION: none
+}
+#selected {
+	background-color: #555;
+}
+#scaffolding {
+	BORDER-RIGHT: 0px solid #ff0000; BORDER-TOP: 1px solid #ff0000; BACKGROUND: white url('/images/header_bg.gif') no-repeat; BORDER-LEFT: 0px solid #ff0000; BORDER-BOTTOM: 0px solid #ff0000; HEIGHT: 70px; margin-left:0px; margin-right:0px; margin-top:1em; margin-bottom:0px
+}
+#scaffolding A {
+	DISPLAY: block; BACKGROUND: url('/images/hdlogo_flip2.gif') no-repeat 181px 0px; TEXT-INDENT: -999em; HEIGHT: 70px; TEXT-DECORATION: none
+}
+#scaffolding A:hover {
+	BACKGROUND-POSITION: 181px -70px
+}

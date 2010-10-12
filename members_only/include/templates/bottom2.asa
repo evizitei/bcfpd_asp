@@ -1,0 +1,22 @@
+								</td>
+							</tr>
+							<tr>
+								<td bgcolor="#cc0000" valign="bottom"><IMG SRC="/images/members/rightfiregraphic.gif" border="0" width="41" height="59"></td>
+								<td height="59" bgcolor="#cc0000"><img SRC="/images/spacer.gif" border="0" width="543" height="59"></td>
+							</tr>
+						</table>
+					</td>
+					<td bgcolor="#cc0000" width="13" height="100%">&nbsp;</td>
+				</tr>
+			</table>
+		</td>
+	</tr>								
+</table>
+</td></tr></table>
+</body>
+</html>
+
+<%
+cnnBCFPD.Close
+set cnnBCFPD = nothing
+%>

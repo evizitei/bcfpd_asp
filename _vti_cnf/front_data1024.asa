@@ -1,0 +1,15 @@
+vti_encoding:SR|utf8-nl
+vti_author:SR|RICK\\Rick Stephens
+vti_modifiedby:SR|RICK\\Rick Stephens
+vti_timecreated:TR|07 Aug 2006 13:53:14 -0000
+vti_timelastmodified:TR|07 Aug 2006 14:18:18 -0000
+vti_filesize:IR|6781
+vti_extenderversion:SR|4.0.2.8912
+vti_backlinkinfo:VX|
+vti_nexttolasttimemodified:TR|07 Aug 2006 14:18:01 -0000
+vti_cacheddtm:TX|07 Aug 2006 14:18:18 -0000
+vti_cachedlinkinfo:VX|H|javascript:void(0); S|/images/news/<%=server.URLPathEncode(rsNews("Image"))%> S|/images/news/<%=server.URLPathEncode(rsNews("Image"))%> H|/bcfpdnews/ S|/images/news/<%=server.URLPathEncode(rsNews("Image"))%> H|<%=PageName%> H|javascript:void(0); S|/images/news/<%=server.URLPathEncode(rsNews("Image"))%> H|/bcfpdnews/index.asp
+vti_cachedsvcrellinks:VX|SHUS|javascript:void(0); USUS|/images/news/<%=server.URLPathEncode(rsNews("Image"))%> USUS|/images/news/<%=server.URLPathEncode(rsNews("Image"))%> WHUS|bcfpdnews/index.asp USUS|/images/news/<%=server.URLPathEncode(rsNews("Image"))%> UHUS|<%=PageName%> SHUS|javascript:void(0); USUS|/images/news/<%=server.URLPathEncode(rsNews("Image"))%> FHUS|bcfpdnews/index.asp
+vti_cachedhasbots:BR|false
+vti_cachedhastheme:BR|false
+vti_cachedhasborder:BR|false

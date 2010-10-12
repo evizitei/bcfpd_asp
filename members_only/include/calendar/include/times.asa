@@ -1,0 +1,35 @@
+<!-- #include virtual="/include/constants/database.asa"-->
+
+<%
+	
+	Dim  strTimeHr(11), strTimeMin(11)
+
+	strTimeHr(0) = 12
+	strTimeHr(1) = 1
+	strTimeHr(2) = 2
+	strTimeHr(3) = 3
+	strTimeHr(4) = 4
+	strTimeHr(5) = 5
+	strTimeHr(6) = 6
+	strTimeHr(7) = 7
+	strTimeHr(8) = 8
+	strTimeHr(9) = 9
+	strTimeHr(10) = 10
+	strTimeHr(11) = 11
+	
+	
+	strTimeMin(0) = 00
+	strTimeMin(1) = 05
+	strTimeMin(2) = 10
+	strTimeMin(3) = 15
+	strTimeMin(4) = 20
+	strTimeMin(5) = 25
+	strTimeMin(6) = 30
+	strTimeMin(7) = 35
+	strTimeMin(8) = 40
+	strTimeMin(9) = 45
+	strTimeMin(10) = 50
+	strTimeMin(11) = 55
+	
+	
+%>

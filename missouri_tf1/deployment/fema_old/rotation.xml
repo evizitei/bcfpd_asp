@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="rotation.xsl"?>
+<FEMA_Rotation>
+	<JanA>
+		<First>MO-TF1</First>
+		<Second>CA-TFX</Second>
+		<Third>CA-TFX</Third>
+		<Fourth>WA-TF1</Fourth>
+		<Fifth>CA-TFX</Fifth>
+		<Sixth>CA-TFX</Sixth>
+		<Seventh>CA-TFX</Seventh>
+		<Eighth>CA-TFX</Eighth>
+		<Ninth>CA-TFX</Ninth>
+	</JanA>		
+	<JanB>
+		<First>MO-TF1</First>
+		<Second>AZ-TF1</Second>
+		<Third>TN-TF1</Third>
+		<Fourth>WA-TF1</Fourth>
+		<Fifth>CO-TF1</Fifth>
+		<Sixth>NM-TF1</Sixth>
+		<Seventh>NE-TF1</Seventh>
+		<Eighth>AZ-TF1</Eighth>
+		<Ninth>MO-TF1</Ninth>
+	</JanB>		
+	<JanC>
+		<First>MO-TF1</First>
+		<Second>CA-TFX</Second>
+		<Third>CA-TFX</Third>
+		<Fourth>WA-TF1</Fourth>
+		<Fifth>CA-TFX</Fifth>
+		<Sixth>CA-TFX</Sixth>
+		<Seventh>CA-TFX</Seventh>
+		<Eighth>CA-TFX</Eighth>
+		<Ninth>CA-TFX</Ninth>
+	</JanC>		
+</FEMA_Rotation>

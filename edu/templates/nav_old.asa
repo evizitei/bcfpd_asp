@@ -1,0 +1,4 @@
+				
+					<div id="nav1"><%If backPage <> "none" Then%><a href="<%=backPage%>"><img src="something.jpg"></a><%End If%></div>
+					<div id="nav2"><%If nextPage <> "none" Then%><a href="<%=nextPage%>"><img src="something.jpg"></a><%End If%></div>
+			

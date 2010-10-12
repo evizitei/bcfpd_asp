@@ -1,0 +1,199 @@
+<!-- #include virtual="/include/constants/database.asa"-->
+<%
+Public Sub GetQuickLink(Cat_ID)
+Set rsLinks = Server.CreateObject("ADODB.Recordset")
+rsLinks.Open "SELECT * FROM Quick_Links WHERE Link_Category_ID = " & Cat_ID & " ORDER BY Name ASC" , cnnMain, 3%>
+	<table border="0" cellspacing="0" cellpadding="0" bordercolor="white">
+		<tr>
+			<% if not rsLinks.EOF then%>
+			<td align="left"><Font size=2 color=Silver face=arial><b>Quick Links</b></font></td>
+			<%else%>
+			<td>&nbsp;</td>
+			<%end if%>
+		</tr>
+	<%Do While Not rsLinks.EOF%>
+		<tr>
+			<td align="left"><a class="QuickLink" title="<%=rsLinks("description")%>" href="http://<%=rsLinks("URL")%>" target=_blank><font size=1><%=rsLinks("name")%></font></a></td>
+		</tr>
+		<tr>
+		    <td height=6></td>
+		</tr>
+	<%rsLinks.MoveNext
+		Loop
+rsLinks.Close 
+%>
+</table>
+<%if Cat_ID = 40 then 
+rsLinks.Open "SELECT * FROM Quick_Links WHERE Link_Category_ID = 42 ORDER BY Name ASC" , cnnMain, 3%>
+<table border="0" cellspacing="2" cellpadding="2" bordercolor="white">
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td align="left"><Font size="2" color=Silver face="arial"><b>Fire Links</b>&nbsp;</font></td>
+	</tr>
+<%Do While Not rsLinks.EOF%>
+	<tr>
+		<td align="left"><a class="FireLink" title="<%=rsLinks("description")%>" href="http://<%=rsLinks("URL")%>" target="_newWin"><font size=1><%=rsLinks("name")%></font></a></td>
+	</tr>
+<%rsLinks.MoveNext
+Loop
+rsLinks.Close %>
+</table>
+<%End if
+End Sub%>
+
+<%
+Public Function GetVal(frmItem, retVal)
+	If Request.Form(frmItem) <> "" Then
+		GetVal = Request.Form(frmItem)
+	ElseIf Request.QueryString(frmItem) <> "" Then
+		GetVal = Request.QueryString(frmItem)
+	Else
+		GetVal = retVal
+	End If
+
+End Function
+
+
+Public Function GetSelected(comVal1, comVal2)
+	If comVal1 = comVal2 Then
+		GetSelected = "selected"
+	Else
+		GetSelected = ""
+	End If
+
+
+End Function
+
+Public Sub UpdateRec (Table, IDName, IDVal, cnn)
+'Update the Records From A Page
+'Any field starting with an "_" will not be updated
+	Set rs = Server.CreateObject ("ADODB.Recordset")
+	rs.Open "Select * From " & Table & " Where " & IDName & "=" & IDVal, cnnMain, 3, 3
+		If rs.EOF Then
+			rs.AddNew
+		End If
+		For each Item in Request.Form
+			If Left(Item, 1) <> "_" Then
+				If Request.Form(Item) <> "" Then
+					Response.Write Item
+					rs(Item) = Request.Form(Item)
+				Else
+					rs(Item) = Null
+				End If
+			End If
+		Next		
+	rs.Update
+	rs.Close
+End Sub
+
+Public Sub DeleteRec (Table, cnn)
+'If there is a request to delete, delete the record.
+'Id of record must be first field
+	Set rs = Server.CreateObject ("ADODB.Recordset")
+	rs.Open Table, cnn, 3, 3
+		Do While Not rs.EOF
+			If Request.Form("Delete" & rs(0)) Then
+				rs.Delete
+			End If
+		rs.MoveNext
+		Loop
+	rs.Close
+End Sub	
+
+Public Function GetSectionHeader(Section)
+'Author: David Stephens
+'(c) LANIT Consulting
+'Purpose:Return images for section header
+	
+	select case Section
+	
+		case "/aboutbcf"
+			GetSectionHeader = "<img SRC=/images/about/AboutREDmast.jpg border=0>"
+		case "/services"
+			GetSectionHeader = "<img SRC=/images/services/SERVICESRedbox.jpg border=0>"
+		case "/survival"
+			GetSectionHeader = "<img SRC=/images/survival_kids/survivalkidsredbox.gif border=0>"
+		case "/missouri"
+			GetSectionHeader = "<img SRC=/images/motf1/missouritaskforce1.jpg border=0>"
+		case "/wildland"
+			GetSectionHeader = "<img SRC=/images/wildland/wildlandfireteam.gif border=0>"
+		case "/perserve"
+			GetSectionHeader = "<img SRC=/images/perserverence/PerserveranceEndowment.jpg border=0>"
+		case "/joinbcfp"
+			GetSectionHeader = "<img SRC=/images/join/joinourteam.gif border=0>"
+		case "/media_ne"
+			GetSectionHeader = "<img SRC=/images/media/media.gif border=0>"
+		case "/bcfpdnew"
+			GetSectionHeader = "<img SRC=/images/news/section/NewsRedBox.gif border=0>"
+		case "/emrgprep"
+			GetSectionHeader = "<img SRC=/images/emergency_preparedness/EmergencyPrepRedBar.gif border=0>"
+		case "/training"
+			GetSectionHeader = "<img SRC=/images/emergency_preparedness/redbar1.jpg border=0>"
+		case else
+			GetSectionHeader = "<img SRC=/images/emergency_preparedness/redbar1.jpg border=0>"
+	end select
+
+End Function
+
+%>
+<script language="JavaScript">
+	/*
+	Author: David Stephens
+	(c) LANIT Consulting
+	Function to test whether user selected an option from a drop down box.
+	Function recieves two parameters.
+	frmValue is the value of the element
+	Message is any information that you want to display to the user
+	*/
+	function Validate(frmValue, Message){
+		if(frmValue == 0) {
+			alert(Message);
+			return false;
+		}
+	}
+</script>
+
+<script language="JavaScript">
+	/*
+	Author: David Stephens
+	(c) LANIT Consulting
+	Function to test whether user has answered all required fields.
+	Required field names must end with "req"
+	Function recieves two parameters.
+	arrElements is an array of the form's elements
+	Message is any information that you want to display to the user
+	*/
+	function ValidateApp(arrElements, Message){
+	var Arrlength; //Total number of form elements
+	var NameLen; //Number of characters in element name
+	var ElemName; //Name of element
+	ArrLength = arrElements.length;
+		for(x=0;x<ArrLength;x++) {
+			NameLen = arrElements[x].name.length;
+			ElemName = arrElements[x].name;
+			if((ElemName.substring(NameLen, NameLen - 3) == "req") && (arrElements[x].value == "")) {
+				alert(Message + ElemName.slice(0, -3));
+				return false;
+			}
+		}
+	}
+</script>
+
+<script language="JavaScript">
+	/*
+	Author: David Stephens
+	(c) LANIT Consulting
+	This function deletes records from current form
+	*/
+	function Delete() {
+		//var FormName;
+		//FormName = frmName;
+		//alert(frmName);
+		if (confirm("Are you sure that you want to delete these items?")){
+			document.form2.submit();
+		}
+	
+	}
+</script>

@@ -1,0 +1,48 @@
+<table width=100% cellspacing="0" cellpadding="0" height="100%" border="0" bordercolor="orange">
+	<tr>
+		<td colspan="2" align="left" height="16" width="584">
+			<table cellspacing="0" cellpadding="0" border="0" bordercolor="blue" width=100%>
+				<tr>
+<%				if MyBrowser = "Firefox" or MyBrowser = "Netscape" then %>
+					<td align="center" width=16%><img SRC="/images/spacer.gif" border="0" width="5" height="1"><a HREF="/emrgprep/Library/">Library</a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="584">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="StartMenu" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+
+				
+<%				else %>
+					<td align="left" width=33%><img SRC="/images/spacer.gif" border="0" width="5" height="1"><a HREF="/emrgprep/Library/"><small><b>Library</b></small></a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" width="100%">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="StartMenu" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+<%	end if %>
+
+

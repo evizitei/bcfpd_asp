@@ -1,0 +1,65 @@
+<!--#include virtual="/include/browser.asp"-->
+
+<html>
+<head>
+<!--#include virtual="/include/common_functions.asa"-->
+<script language="javascript" src="/include/menus/skimage.js"></script>
+<title>SurvivalKidsPage</title>
+</head>
+<style type="text/css">
+<%if MyBrowser = "Netscape4" then %>
+<!--#include virtual="/style_net.css"-->
+<%else%>
+<!--#include virtual="/style.css"-->
+<%end if%>
+</style>
+
+
+<body BGCOLOR="white">
+<p>
+<table cellSpacing="0" cellPadding="0" border="0">
+	<tr>
+		<td><a title="Home" href="/"><img SRC="/images/survivalkids/SurvivalKidsPage_01.jpg" width="104" height="99" border="0"></a></td>
+		<td colspan="2"><img SRC="/images/survivalkids/SurvivalKidsPage_02.jpg" width="596" height="99" border="0"></td>
+	</tr>
+	<tr>
+		<td colspan="3"><img SRC="/images/survivalkids/SurvivalKidsPage_03a.jpg" width="700" height="296"></td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<table cellSpacing="0" cellPadding="0" border="0">
+				<tr>
+					<td height="100%" width="104" bgcolor="#FF4400" valign="top">
+						<table height="100%" cellSpacing="0" cellPadding="0" border="0">
+							<tr>
+								<td width="104" height="44" valign="top"><a href="/survival_kids/parents/" onmouseover="changeImage('a',buttonona);" onmouseout="changeImage('a',buttonoffa);"><img name="a" SRC="/images/survivalkids/SurvivalKidsPageon_04.jpg" width="104" border="0"></td>
+							</tr>
+							<tr>
+								<td width="104" height="37"><a href="/survival_kids/teachers/" onmouseover="changeImage('b',buttononb);" onmouseout="changeImage('b',buttonoffb);"><img name="b" SRC="/images/survivalkids/SurvivalKidsPageon_07.jpg" width="104" border="0"></td>
+							</tr>
+							<tr>
+								<td width="104" height="25"><a href="/survival_kids/flash/login.html" target="_blank" onmouseover="changeImage('c',buttononc);" onmouseout="changeImage('c',buttonoffc);"><img name="c" SRC="/images/survivalkids/SurvivalKidsPageon_09.jpg" width="104" border="0"></td>
+							</tr>
+							<tr>
+								<td width="104" height="36"><a href="/survival_kids/application/" onmouseover="changeImage('d',buttonond);" onmouseout="changeImage('d',buttonoffd);"><img name="d" SRC="/images/survivalkids/SurvivalKidsPageon_11.jpg" width="104" border="0"></td>
+							</tr>
+							<tr>
+								<td background="/images/survivalkids/SurvivalKidsPage_13.jpg" width="104"><br><a target="_blank" href="/survival_kids/flash/login.html"><img SRC="/images/survivalkids/Survkids.gif" width="104" border="0"></a></td>
+							</tr>
+							<tr>
+								<td background="/images/survivalkids/SurvivalKidsPage_13.jpg" width="104" height="100%"><p>
+									<%if QuickLinkID <> "" then%>
+									<%GetQuickLink QuickLinkID%>
+									<%end if%>
+								</td>
+							</tr>
+							<tr>
+								<td background="/images/survivalkids/SurvivalKidsPage_13.jpg" width="104" height="137" align="center" valign="bottom"><a title="Survival Kids Home Page" href="/survival_kids/"><img border="0" SRC="/images/survivalkids/f_hydr_l_opt.gif" WIDTH="90" HEIGHT="106"></a></td>
+							</tr>
+						</table>
+					</td>
+					<td width="573" valign="top">
+    
+    
+    
+

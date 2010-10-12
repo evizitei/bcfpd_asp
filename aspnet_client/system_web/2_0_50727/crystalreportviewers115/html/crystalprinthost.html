@@ -1,0 +1,14 @@
+<HTML>
+<HEAD>
+<TITLE>Crystal Reports Viewer</TITLE>
+<SCRIPT language="Javascript" src="../js/print.js"></SCRIPT>
+<SCRIPT FOR="CrystalPrintControl" EVENT="Finished(status, statusText)" LANGUAGE="Javascript">
+<!--
+window.close();
+-->
+</SCRIPT>
+</HEAD>
+<BODY onBeforeUnload="cancelPrinting(document.getElementById('CrystalPrintControl'))">
+<SCRIPT language="Javascript" src="../js/externalprint.js"></SCRIPT>
+</BODY>
+</HTML>

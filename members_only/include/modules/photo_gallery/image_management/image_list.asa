@@ -1,0 +1,167 @@
+
+<%
+Public Sub ManageImage(ImgDirectory, VirtualDirectory)
+'This procedure displays a list of images for a directory where they can be added, previewed or deleted
+'This procedure requires two parameters:
+'1. ImgDirectory is the complete mapped path of the directory where the images are stored
+'		example--> "d:\commerce sites\fnb\images\about\banker_spotlight"
+'2.	VirtualDirectory is the virtual path of the directory
+'		example--> "\images\about\banker_spotlight"
+'Author: David Stephens
+'Copyright LANIT Consulting
+'
+'Declarations
+
+	Set fs = CreateObject("Scripting.FileSystemObject")
+	set rsImgCat = Server.CreateObject("ADODB.Recordset")
+	set rsImage = Server.CreateObject("ADODB.Recordset")
+	
+	'rsImage.Open "SELECT * FROM Image", cnnMain,3,3 
+	'Do while not rsImage.EOF 
+	'	rsImage.Delete
+	'	rsImage.MoveNext 
+	'loop 
+		'rsImage.Update 
+	'rsImage.Close 
+
+	'NumOfCats = rsImgCat.RecordCount
+	'Response.Write(NumOfCats)
+	'ReDim ImgCatArray(NumOfCats)
+	'Dim ArrayCounter
+	'ArrayCounter = 0
+
+	'do while not rsImgCat.EOF
+	'	ImgCatArray(ArrayCounter) = rsImgCat("Name")
+	'	rsImgCat.MoveNext 
+	'	ArrayCounter = ArrayCounter + 1
+	'loop
+	
+	'rsImgCat.Close 
+	
+	'Dim Color
+	Dim Counter
+
+
+	for each item in Request.Form("Delete")
+		if left(item,1) <> "_" then
+			rsImage.Open "SELECT * FROM Image WHERE Name = '" & item & "'", cnnMain,3,3 
+			if not rsImage.EOF then
+				rsImage.Delete 
+			'rsImage.Update 
+			end if
+			rsImage.Close 
+			'Response.Write(item)
+			fs.DeleteFile(ImgDirectory & "\" & item)	
+			fs.DeleteFile("C:\websites\bcfdmo\images\photo_gallery\Full_Size\" & item)		
+		end if
+	next
+
+	%>
+
+
+	<form method="POST" action="" id=form1 name=form1 <%=Request.ServerVariables("SCRIPT_NAME")%>"">
+		<table border="0" cellpadding="0" cellspacing="0">
+		  <tr>
+		    <td></td>
+		    <td>
+		      <table border="1" cellpadding="5" cellspacing="0" bordercolor="#f2f2f2">
+				<tr>
+					<td class="subheadercenter">Delete</td>
+					<td class="subheadercenter">Image</td>
+					<td  class="subheadercenter">Description</td>
+					<td  class="subheadercenter">View</td>
+	<!--			<td class="subheadercenter">Size</td>-->
+					<td  class="subheadercenter">Category</td>
+				</tr>
+	<%
+	If Not fs.FolderExists(ImgDirectory) Then
+	   fs.CreateFolder ImgDirectory
+	End If
+
+	Set f = fs.GetFolder(ImgDirectory & "\")
+	Set fc = f.Files
+
+	Color = "#F6E2C1"
+	Counter = 1
+	
+	If Request.Form("Submit") = "Save" then
+		rsImage.Open "SELECT * FROM Image ORDER BY Name", cnnMain,3,3 
+		For each item in Request.Form("Category")
+			rsImage("Image_Category_ID") = item
+			rsImage.Update
+			rsImage.MoveNext 
+		next
+		rsImage.close
+		rsImage.Open "SELECT * FROM Image ORDER BY Name", cnnMain,3,3 
+		For each item in Request.Form("Description")
+			rsImage("Description") = item
+			rsImage.Update
+			rsImage.MoveNext 
+		next
+		rsImage.close
+
+	end if
+	
+	
+			For Each Item in fc
+			rsImage.Open "SELECT * FROM Image WHERE Name = '" & Item.name & "'", cnnMain,3,3 
+			if rsImage.EOF then
+				rsImage.AddNew 
+				rsImage("Name") = Item.name
+				rsImage.Update
+			end if
+			
+			rsImgCat.Open "SELECT * FROM Image_Category ORDER BY Name ASC", cnnMain,3  %>
+			
+				<tr>
+					<td align="center"><INPUT type="checkbox" id=checkbox1 name="Delete" value="<%=Item.name%>"></td>
+					<td ><font size="1"><%=Counter & ". " & Item.name%></font></td>
+					<td><TEXTAREA rows=5 maxlength="8000" cols=20 id=textarea1 name="Description"><%=rsImage("Description")%></TEXTAREA></td>
+					<td align="center"><a class="Update" style="cursor: hand" OnClick='window.open("/members_only/include/modules/image_management/view_image.asa?Image=<%=server.URLEncode(VirtualDirectory & "\" & Item.name)%>", "View_Image", "menubar=no, toolbar=no, scrollbars=yes")'>View Image</a></td>
+<!--				<td align="center"><font size="2">(<%=cint(Item.size/1024)%>) KB</font></td> -->
+					<td align="center"><SELECT id=select1 name="Category">
+													<option value="0">Choose a Category...</option>
+											<%	Do while not rsImgCat.EOF %>
+													<OPTION value="<%=rsImgCat("Category_ID")%>" <%if rsImgCat("Category_ID") = rsImage("Image_Category_ID") then %>selected<%end if%>><%=rsImgCat("Name")%></OPTION>
+											<%		rsImgCat.MoveNext 
+												loop 
+												rsImgCat.Close %>
+										</SELECT>
+					</td>
+					
+				</tr>
+	<%
+				'If Color = "#F6E2C1" then
+				'	Color = "Whitesmoke"
+				'else
+				'	Color = "#F6E2C1"
+				'end if 
+				Counter = Counter + 1
+			'Response.Write(rsImage("Name"))
+			rsImage.close
+			Next
+
+
+
+	%>
+				<tr>
+					<td align="right" colspan="5">
+						<a href="javascript:submit(document.form1, 'Save');"><img SRC="/images/members/buttons/Save.gif" border="0" width="45" height="34"></a>
+						<img src="/images/spacer.gif" border="0" height="1" width="35">
+						<a style="cursor: hand" OnClick='window.open("/members_only/include/modules/photo_gallery/image_management/file_upload/browse.asp?Path=<%=server.URLEncode(VirtualDirectory)%>")' name="Add_Image"><img SRC="/images/members/buttons/add.gif" border="0" width="45" height="34"></a>
+						<img src="/images/spacer.gif" border="0" height="1" width="35">
+						<a href="javascript:submit(document.form1, 'Delete Selected Images');"><img SRC="/images/members/buttons/Delete.gif" border="0" width="45" height="34"></a>
+						<img src="/images/spacer.gif" border="0" height="1" width="35">
+						<a style="cursor: hand" OnClick="window.location='/members_only/photo_gallery/images/index.asp';"><img src="/images/members/buttons/cancel.gif" border="0" width="45" height="34"></a>
+						<input type="hidden" name="Submit">
+					</td>
+				</tr>
+			</table>
+		 </td>
+		</tr>
+	</table>
+
+	</form>
+<%
+End Sub
+%>

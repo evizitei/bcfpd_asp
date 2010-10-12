@@ -1,0 +1,165 @@
+<%
+Public Sub ManageImage(ImgDirectory, VirtualDirectory)
+'This procedure displays a list of images for a directory where they can be added, previewed or deleted
+'This procedure requires two parameters:
+'1. ImgDirectory is the complete mapped path of the directory where the images are stored
+'		example--> "d:\commerce sites\fnb\images\about\banker_spotlight"
+'2.	VirtualDirectory is the virtual path of the directory
+'		example--> "\images\about\banker_spotlight"
+'Author: David Stephens
+'Copyright LANIT Consulting
+'
+'Declarations
+
+	Set fs = CreateObject("Scripting.FileSystemObject")
+	set rsVideoCat = Server.CreateObject("ADODB.Recordset")
+	set rsVideo = Server.CreateObject("ADODB.Recordset")
+	
+	'rsVideo.Open "SELECT * FROM Video", cnnMain,3,3 
+	'Do while not rsVideo.EOF 
+	'	rsVideo.Delete
+	'	rsVideo.MoveNext 
+	'loop 
+		'rsVideo.Update 
+	'rsVideo.Close 
+
+	'NumOfCats = rsVideoCat.RecordCount
+	'Response.Write(NumOfCats)
+	'ReDim ImgCatArray(NumOfCats)
+	'Dim ArrayCounter
+	'ArrayCounter = 0
+
+	'do while not rsVideoCat.EOF
+	'	ImgCatArray(ArrayCounter) = rsVideoCat("Name")
+	'	rsVideoCat.MoveNext 
+	'	ArrayCounter = ArrayCounter + 1
+	'loop
+	
+	'rsVideoCat.Close 
+	
+	'Dim Color
+	Dim Counter
+
+
+	for each item in Request.Form("Delete")
+		if left(item,1) <> "_" then
+			rsVideo.Open "SELECT * FROM Video WHERE Name = '" & item & "'", cnnMain,3,3 
+			if not rsVideo.EOF then
+				rsVideo.Delete 
+			'rsVideo.Update 
+			end if
+			rsVideo.Close 
+			'Response.Write(item)
+			fs.DeleteFile(ImgDirectory & "\" & item)			
+		end if
+	next
+
+	%>
+
+
+	<form method="POST" action <%=Request.ServerVariables("SCRIPT_NAME")%>"" id="form1" name="form1">
+		<table border="0" cellpadding="0" cellspacing="0">
+		  <tr>
+		    <td></td>
+		    <td>
+		      <table border="1" cellpadding="5" cellspacing="0" bordercolor="#f2f2f2">
+				<tr>
+					<td align="center"><font size="4">Delete</font></td>
+					<td align="center"><font size="4">Video</font></td>
+					<td align="center"><font size="4">Description</font></td>
+					<td align="center"><font size="4">View</font></td>
+					<td align="center"><font size="4">Size</font></td>
+					<td align="center"><font size="4">Category</font></td>
+				</tr>
+	<%
+	If Not fs.FolderExists(ImgDirectory) Then
+	   fs.CreateFolder ImgDirectory
+	End If
+
+	Set f = fs.GetFolder(ImgDirectory & "\")
+	Set fc = f.Files
+
+	Color = "#F6E2C1"
+	Counter = 1
+	
+	If Request.Form("Submit") = "Save" then
+		rsVideo.Open "SELECT * FROM Video ORDER BY Name", cnnMain,3,3 
+		For each item in Request.Form("Category")
+			rsVideo("Video_Category_ID") = item
+			rsVideo.Update
+			rsVideo.MoveNext 
+		next
+		rsVideo.close
+		
+		rsVideo.Open "SELECT * FROM Video ORDER BY Name", cnnMain,3,3 
+		For each item in Request.Form("Description")
+			rsVideo("Description") = item
+			rsVideo.Update
+			rsVideo.MoveNext 
+		next
+		rsVideo.close
+	end if
+	
+	
+			For Each Item in fc
+			rsVideo.Open "SELECT * FROM Video WHERE Name = '" & Item.name & "'", cnnMain,3,3 
+			if rsVideo.EOF then
+				rsVideo.AddNew 
+				rsVideo("Name") = Item.name
+				rsVideo.Update
+			end if
+			
+			rsVideoCat.Open "SELECT * FROM Video_Category ORDER BY Name ASC", cnnMain,3  %>
+			
+				<tr>
+					<td align="center"><input type="checkbox" id="checkbox1" name="Delete" value="<%=Item.name%>"></td>
+					<td><font size="1"><nobr><%=Counter & ". " & Item.name%></nobr></font></td>
+					<td><textarea rows="3" maxlength="8000" cols="10" id="textarea1" name="Description"><%=rsVideo("Description")%></textarea></td>
+					<td align="center"><a class="Update" href="<%=VirtualDirectory & "\" & Item.name%>">View Video</a></td>
+					<td align="center"><font size="2">(<%=cint(Item.size/1024)%>) KB</font></td>
+					<td align="center"><select id="select1" name="Category">
+													<option value="0">Choose a Category...</option>
+											<%	Do while not rsVideoCat.EOF %>
+													<option value="<%=rsVideoCat("Category_ID")%>" <%if rsVideoCat("Category_ID") = rsVideo("Video_Category_ID") then %>selected<%end if%>><%=rsVideoCat("Name")%></option>
+											<%		rsVideoCat.MoveNext 
+												loop 
+												rsVideoCat.Close %>
+										</select>
+					</td>
+				</tr>
+	<%
+				'If Color = "#F6E2C1" then
+				'	Color = "Whitesmoke"
+				'else
+				'	Color = "#F6E2C1"
+				'end if 
+				Counter = Counter + 1
+			'Response.Write(rsVideo("Name"))
+			rsVideo.close
+			Next
+
+
+
+	%>
+				<tr>
+					<td align="right" colspan="6">
+						<a href="javascript:submit(document.form1, 'Save');"><img SRC="/images/members/buttons/Save.gif" border="0" width="45" height="34"></a>
+						<img src="/images/spacer.gif" border="0" width="35" height="1">
+						<a style="cursor: hand" OnClick="window.open(&quot;/members_only/include/modules/photo_gallery/video_management/file_upload/browse.asp?Path=<%=server.URLEncode(VirtualDirectory)%>&quot;), 'Video_Upload', 'toolbar=no,menubar=no,scrollbars=no';"><img SRC="/images/members/buttons/add.gif" border="0" width="45" height="34"></a>
+						<img src="/images/spacer.gif" border="0" width="35" height="1">
+						<a href="javascript:submit(document.form1, 'Delete Selected Videos');"><img SRC="/images/members/buttons/Delete.gif" border="0" width="45" height="34"></a>
+						<img src="/images/spacer.gif" border="0" width="35" height="1">
+						<a style="cursor: hand" OnClick="window.history.back();"><img src="/images/members/buttons/cancel.gif" border="0" width="45" height="34"></a>
+						<input type="hidden" name="Submit">
+						</td>
+					</td>
+				</tr>
+			</table>
+		 </td>
+		</tr>
+	</table>
+
+	</form>
+<%
+End Sub
+%>

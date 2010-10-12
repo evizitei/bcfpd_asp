@@ -1,0 +1,47 @@
+<!-- #include virtual="/include/constants/database.asa"-->
+
+<%<!--#include virtual="/include/common/database.asa"-->%>
+<!--#include file="common_functions.asa"-->
+<!--#include file="calendar_functions.asa"-->
+
+<%
+If Request("updateAction") = "update" Then
+	UpdateRec "calendar", "Calendar_ID", Request.Form("Calendar_ID"), cnn
+End If
+
+If Request("updateAction") = "delete" Then
+	DeleteRec "calendar", "Calendar_ID", cnn
+End If
+
+
+
+If Request.QueryString("Edit").Count > 0 Then
+	rsCalendar.Open "Select * From calendar Where Calendar_ID = " & Request.QueryString("Edit"), cnnMain, 3, 3
+	If rsCalendar.EOF Then
+		rsCalendar.AddNew
+		dispEdit Node_ID, Request.QueryString("Edit"), Request.QueryString("Date"), Request.QueryString("startTime")
+	Else
+		dispEdit Node_ID, Calendar_ID, Request.QueryString("Date"), Request.QueryString("startTime")
+	End If
+ElseIf Request("updateAction") = "dispDeletePage" Then
+	dispDelete Node_ID, "Calendar_ID", Request.QueryString("Date"), Request.QueryString("dispType")
+
+Else
+	Select Case GetVal("View", "Month")
+
+	Case "Month"
+		If Request.QueryString("Date") <> "" Then
+			dispMonth Node_ID, Request.QueryString("Date")
+		Else 
+			dispMonth Node_ID, Date()
+		End If
+	Case "Year"
+		dispYear Node_ID, Request.QueryString("Date")
+	Case "Day"
+		dispDay Node_ID, Request.QueryString("Date"), True
+		
+	End Select
+
+
+End If	
+%>

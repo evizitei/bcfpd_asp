@@ -1,0 +1,78 @@
+<table width=100% cellspacing="0" cellpadding="0" height="100%" border="0" bordercolor="orange">
+	<tr>
+		<td colspan="2" align="left" height="16" width="584">
+			<table cellspacing="0" cellpadding="0" border="0" bordercolor="blue" width=100%>
+				<tr>
+<%				if MyBrowser = "Firefox" or MyBrowser = "Netscape" then %>
+					<td align="left" width=17% onMouseover="Display('Education', 110, 112)" OnMouseOut="Hide('About')"><img SRC="/images/spacer.gif" border="0" width="5" height="1"><a HREF="/training/education/">EMS Education</a></td>
+					<td align="center" width=16%><a HREF="/training/Library/">Library</a></td>
+					<td align="center" width=16% onMouseover="Display('Training', 740, 112)" OnMouseOut="Hide('Contact')"><a HREF="/training/training/" >AHA Training Center</a></td>
+					<td align="center" width=16%><a HREF="/training/fire_education/">Fire Education</a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="584">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="StartMenu" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+
+					<div ID="Education" onMouseover="Display('Education')" OnMouseOut="Hide('Education')" CLASS="menubox">
+							&nbsp;<a CLASS="menutext" HREF="/training/education/2007EMSCALENDAR2.doc">EMS Calendar</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="/training/education/EMTBApplication.doc">EMT Basic</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="/training/education/ParamedicApplication.doc">Paramedic</a>&nbsp;&nbsp;<br>
+					</div>
+					
+					<div ID="Training" onMouseover="Display('Training')" OnMouseOut="Hide('Training')" CLASS="menubox">
+							&nbsp;<a CLASS="menutext" HREF="/training/training/AHAExamDates.doc" target=_blank>Exam Information</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="http://my.americanheart.org/eccportal/ecc/ecc" target=_blank>New News</a>&nbsp;&nbsp;<br>
+							&nbsp;<a CLASS="menutext" HREF="http://www.americanheart.org/presenter.jhtml?identifier=3011793" target=_blank>PROAD Manual</a>&nbsp;&nbsp;<br>
+					</div>
+
+					
+<%				else %>
+					<td align="left" width=25% onMouseover="Display('Education', 108, 119)"><img SRC="/images/spacer.gif" border="0" width="5" height="1"><a HREF="/training/education/"><small><b>EMS Education</b></small></a></td>
+					<td align="left" width=20%><a HREF="/training/Library/"><small><b>Library</b></small></a></td>
+					<td align="left" width=30% onMouseover="Display('Training', 365, 119)"><a HREF="/training/training/"><small><b>AHA Training Center</b></small></a></td>
+					<td align="left" width=25%><a HREF="/training/fire_education/"><small><b>Fire Education</b></small></a></td>
+
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" width="100%">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="StartMenu" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+				<div ID="Education" onMouseover="keepMenu();" CLASS="menubox">
+					<A CLASS='menutext'  HREF='/training/education/2007EMSCALENDAR2.doc' target=_blank >&nbsp;&nbsp;EMS Calendar</A>&nbsp;&nbsp;<BR>
+					<A CLASS='menutext'  HREF='/training/education/EMTBApplication.doc' target=_blank >&nbsp;&nbsp;EMT Basic</A>&nbsp;&nbsp;<BR>
+					<A CLASS='menutext'  HREF='/training/education/ParamedicApplication.doc' target=_blank >&nbsp;&nbsp;Paramedic</A>&nbsp;&nbsp;<BR>
+				</div>
+
+				<div ID="Training" onMouseover="keepMenu();" CLASS="menubox">
+					<a CLASS="menutext" HREF="/training/training/AHAExamDates.doc" target=_blank>&nbsp;&nbsp;Exam Information&nbsp;&nbsp;</a>&nbsp;&nbsp<BR> 
+					<a CLASS="menutext" HREF="http://my.americanheart.org/eccportal/ecc/ecc" target=_blank>&nbsp;&nbsp;New News&nbsp;&nbsp;</a>&nbsp;&nbsp<BR>
+					<a CLASS="menutext" HREF="http://www.americanheart.org/presenter.jhtml?identifier=3011793" target=_blank>&nbsp;&nbsp;PROAD Manual&nbsp;&nbsp;</a>&nbsp;&nbsp<BR>
+				</div>
+<%	end if %>
+
+

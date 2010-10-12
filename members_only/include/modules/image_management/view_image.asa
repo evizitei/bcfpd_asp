@@ -1,0 +1,13 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+</HEAD>
+<BODY onload="window.resizeTo(500,400);">
+
+<table width="100%" height="100%">
+	<tr>
+		<td align="center"><img src="<%=Request.QueryString("Image")%>"></td>
+	</tr>
+</table>
+</BODY>
+</HTML>

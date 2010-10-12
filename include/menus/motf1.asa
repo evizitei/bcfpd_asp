@@ -1,0 +1,79 @@
+<table cellspacing="0" cellpadding="0" height="100%" border="0" bordercolor="orange">
+	<tr>
+		<td colspan="2" align="center" height="16" width="584">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" bordercolor="orange">
+				<tr>
+<%				if MyBrowser = "Firefox" or MyBrowser = "Netscape" then %>
+					<td align="center"><A HREF="/missouri_tf1/faq/"><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_01.gif" width="54" height="16"></A></td>
+					<td align="center" onMouseover="Display('Deployment', 250, 112)" OnMouseOut="Hide('Deployment')"><A HREF="/missouri_tf1/deployment/"><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_02.gif" width="115" height="16"></A></td>
+					<td align="center" onMouseover="Display('MOTF1Join', 410, 112)" OnMouseOut="Hide('MOTF1Join')" ><A HREF="/missouri_tf1/join/"><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_03.gif" width="68" height="16"></A></td>
+					<td align="center"><A HREF="/missouri_tf1/Library/" ><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_04.gif" width="78" height="16"></A></td>
+					<td align="center"><A HREF="/missouri_tf1/Organization/" ><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_06.gif" width="104" height="16"></A></td>
+					<td align="center"><A HREF="/missouri_tf1/training/" ><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_07.gif" width="79" height="16"></A></td>
+					<td align="center"><img border="0" src="/images/spacer.gif" width="75" height="16"></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="584">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="Div1" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+						
+				
+					<div id='MOTF1Join' OnMouseOver="Display('MOTF1Join')" OnMouseOut="Hide('MOTF1Join')" CLASS="menubox">
+						&nbsp;<A CLASS='menutext'  HREF='/missouri_tf1/join/application/'>&nbsp;&nbsp;Join MO-TF1 Application</A> <BR>
+					</div>
+						
+					<div id='Deployment' OnMouseOver="Display('Deployment')" OnMouseOut="Hide('Deployment')" CLASS="menubox">
+						&nbsp;<A CLASS='menutext'  HREF='/missouri_tf1/deployment/mo/'>&nbsp;&nbsp;MO-TF1 Rotation Schedule</A><BR>
+						&nbsp;<A CLASS='menutext'  HREF='/missouri_tf1/deployment/fema/'>&nbsp;&nbsp;FEMA Rotation Schedule</A><BR>
+					</div>
+			
+<%	else %>
+					<td align="center"><A HREF="/missouri_tf1/faq/"><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_01.gif" width="54" height="16"></A></td>
+					<td align="center"><A HREF="/missouri_tf1/deployment/" onMouseover="Display('Deployment', 190, 118)" ><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_02.gif" width="115" height="16"></A></td>
+					<td align="center"><A HREF="/missouri_tf1/join/" onMouseover="Display('MOTF1Join', 298, 118)" ><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_03.gif" width="68" height="16"></A></td>
+					<td align="center"><A HREF="/missouri_tf1/Library/" ><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_04.gif" width="78" height="16"></A></td>
+					<td align="center"><A HREF="/missouri_tf1/Organization/" ><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_06.gif" width="104" height="16"></A></td>
+					<td align="center"><A HREF="/missouri_tf1/training/" ><img border="0" src="/images/section_menu/motf1/Task-Force-One-Nav_07.gif" width="79" height="16"></A></td>
+					<td align="center"><img border="0" src="/images/spacer.gif" width="75" height="16"></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="100%">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td align="left">
+					<div ID='StartMenu' STYLE='display:none; position:absolute;'></div>
+
+		<SCRIPT TYPE="text/javascript">
+			var AnimatedMenu = StartMenu;
+		</SCRIPT>
+
+		<div ID='MOTF1Join' onMouseover='keepMenu();' CLASS='menubox'>
+			<A CLASS='menutext'  HREF='/missouri_tf1/join/application/'>&nbsp;&nbsp;Join MO-TF1 Application&nbsp;&nbsp;</A>
+		</div>
+
+		<div ID='Deployment' onMouseover='keepMenu();' CLASS='menubox'>
+			<A CLASS='menutext'  HREF='/missouri_tf1/deployment/mo/'>&nbsp;&nbsp;MO-TF1 Rotation Schedule&nbsp;&nbsp;</A><br>
+			<A CLASS='menutext'  HREF='/missouri_tf1/deployment/fema/'>&nbsp;&nbsp;FEMA Rotation Schedule&nbsp;&nbsp;</A>
+		</div>
+
+<%	end if %>
+
+

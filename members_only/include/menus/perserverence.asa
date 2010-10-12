@@ -1,0 +1,26 @@
+<table cellspacing="0" cellpadding="0" height="100%" border="0" bordercolor="orange">
+	<tr>
+		<td colspan="2" align="center" height="16" width="584">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" bordercolor="orange">
+				<tr>
+					<td align="center"><A HREF="/perserverence/application/"><img border="0" src="/images/section_menu/perseverance/Perserv-Endow-Nav_01.gif" width="288" height="16"></A></td>
+					<td align="center"><A HREF="/perserverence/info/" ><img border="0" src="/images/section_menu/perseverance/Perserv-Endow-Nav_02.gif" width="285" height="16"></A></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/about/Dottedspacer.gif" border="0" width="573" height="7"><img SRC="/images/spacer.gif" width="11" height="1" border="0"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="100%">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID='StartMenu' STYLE='display:none; position:absolute;'></div>
+
+					<SCRIPT TYPE="text/javascript">
+						var AnimatedMenu = StartMenu;
+					</SCRIPT>
+
+

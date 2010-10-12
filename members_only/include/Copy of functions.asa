@@ -1,0 +1,174 @@
+<!--#include virtual="/include/constants/database.asa"-->
+<!--#include virtual="/members_only/include/constants/database.asa"-->
+
+<%
+public function stripQuotes(strWords) 
+	stripQuotes = replace(strWords, "'", "''")
+end function 
+
+public function killChars(strWords) 
+	dim badChars 
+	dim newChars 
+
+	badChars = array("select", "drop", ";", "--", "insert",	"delete", "xp_") 
+	newChars = stripQuotes(strWords)
+
+	for i = 0 to uBound(badChars) 
+		newChars = replace(newChars, badChars(i), "") 
+	next 
+
+	killChars = newChars 
+end function 
+
+Public Function GetVal(frmItem, retVal)
+'Author: Chris Ellingsworth
+'(c) LANIT Consulting
+'Purpose:Get form or Querystring values
+'This function takes two arguments:
+'		1.  frmItem as String - this is used to see if a form or QueryString item has been passed
+'				with the name frmItem
+'		2.  retVal as String - this can be considered the default value to be returned; if the function 
+'				that there has been no form or QueryString item passed by the name frmItem , then it returns
+'				the retValue
+	If Request.Form(frmItem) <> "" Then
+		GetVal = Request.Form(frmItem)
+	ElseIf Request.QueryString(frmItem) <> "" Then
+		GetVal = Request.QueryString(frmItem)
+	Else
+		GetVal = retVal
+	End If
+
+End Function
+
+
+Public Function GetSelected(comVal1, comVal2)
+'Author: Chris Ellingsworth
+'(c) LANIT Consulting
+'Purpose: Simple Dropdown list persistent select
+	If comVal1 = comVal2 Then
+		GetSelected = "selected"
+	Else
+		GetSelected = ""
+	End If
+
+
+End Function
+
+Public Sub UpdateRec (Table, IDName, IDVal, cnn)
+'Update the Records From A Page
+'Any field starting with an "_" will not be updated
+	Set rs = Server.CreateObject ("ADODB.Recordset")
+	rs.Open "Select * From " & Table & " Where " & IDName & "=" & IDVal, cnnMain, 3, 3
+		If rs.EOF Then
+			rs.AddNew
+		End If
+		For each Item in Request.Form
+			If Left(Item, 1) <> "_" Then
+				If Request.Form(Item) <> "" Then
+					Response.Write Item
+					rs(Item) = Request.Form(Item)
+				Else
+					rs(Item) = Null
+				End If
+			End If
+		Next		
+	rs.Update
+	rs.Close
+End Sub
+
+Public Sub DeleteRec (Table, cnn)
+'If there is a request to delete, delete the record.
+'Id of record must be first field
+	Set rs = Server.CreateObject ("ADODB.Recordset")
+	rs.Open Table, cnn, 3, 3
+		Do While Not rs.EOF
+			If Request.Form("Delete" & rs(0)) Then
+				rs.Delete
+			End If
+		rs.MoveNext
+		Loop
+	rs.Close
+End Sub	
+
+
+Public Sub ReturnClass(Item, Val, RetClass, RetAltClass)
+'Author: David Stephens
+'(c) LANIT Consulting
+'Purpose:Return style class based on Val of Item sent to function
+'This function takes three arguments:
+'		1.  Item - This is the item (recordset, form value, etc.) being tested
+'		2.  Val  - This the value (of Item) that is being test for 
+'		3.	RetClass - This is the name of the style sheet class that is returned if Item = Val
+'		4.	RetAltClass - This is the name of the style sheet class that is returned if Item <> Val
+
+	RetString = "class=" & RetClass 
+	RetAltString = "class=" & RetAltClass 
+	If StrComp(Item, Val, 1) = 0 Then
+		Response.Write(RetString)
+	else
+		Response.Write(RetAltString)
+	End If
+
+End Sub
+
+
+Public Sub ReturnAnswer(Answer, Value, RetValue1, RetValue2)
+'Author: David Stephens
+'(c) LANIT Consulting
+'Purpose:Return one of two values based on Val of Item sent to function
+'This function takes four arguments:
+'		1.  Answer - This is the item (recordset, form value, etc.) being tested
+'		2.  Value  - This the value (of Answer) that is being test for 
+'		3.	RetValue1 - This is the value that is returned if Answer = Value
+'		4.	RetValue2 - This is the value that is returned if Answer <> Value
+
+	if Answer = Value then
+		Response.Write(RetValue1)
+	else
+		Response.Write(RetValue2)
+	end if
+
+End Sub
+
+Public Sub Order(TableName, Action, KeyFieldValue)
+		dim DateRec1, DateRec2, IDVal2
+		Set rs = Server.CreateObject ("ADODB.Recordset")
+		'This procedure is used to alter the order of displaying records from a table....
+		     'based on a filter by swapping a Date/Time field
+		'Action is either up or down
+		'KeyField is the primary key for TableName
+		'KeyFieldValue is the specific primary key of the record that you are wanting to move
+		'FilterBy is the field that the record set is sorted by
+		'FilterVal is the value of FilterBy 
+		'You must have a field called Sort in the table
+
+		rs.Open "Select * FROM " & TableName & " order by Sort Asc ", cnnMain, 3, 3
+		rs.Find rs(0).Name & "=" & KeyFieldValue
+
+			if Action = "up" then
+				DateRec1 = rs("Sort")
+				rs.MovePrevious
+				if not rs.BOF then
+					DateRec2 = rs("Sort")
+					rs("Sort") = DateRec1
+					rs.Movenext
+					rs("Sort") = DateRec2
+					rs.Update 
+					rs.Close 
+				else
+					rs.Close 
+				end if 
+			else
+				DateRec1 = rs("Sort")
+				rs.Movenext
+				if not rs.EOF then
+					DateRec2 = rs("Sort")
+					rs("Sort") = DateRec1
+					rs.MovePrevious 
+					rs("Sort") = DateRec2
+					rs.Update 
+					rs.Close 
+				end if
+			end if
+End Sub
+%>

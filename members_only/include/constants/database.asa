@@ -1,0 +1,16 @@
+<%
+dim cnnBCFPD
+dim rsBCFPD
+dim strConn
+
+Set cnnBCFPD = Server.CreateObject("ADODB.Connection")
+strConn = "Provider=SQLOLEDB.1;UID=bcfpdwebuser; PWD=HudvG4QJ; Initial Catalog=bcfdmo; Data source=fh.bcfdmo.com"  
+cnnBCFPD.open strConn
+
+Set rsBCFPD = Server.CreateObject ("ADODB.Recordset")
+
+
+Set cnnMain = Server.CreateObject("ADODB.Connection")
+cnnMain.open strConn
+
+%>

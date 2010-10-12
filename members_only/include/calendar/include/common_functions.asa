@@ -1,0 +1,76 @@
+<!-- #include virtual="/include/constants/database.asa"-->
+
+<%
+
+Public Function GetVal(frmItem, retVal)
+'Author: Chris Ellingsworth
+'(c) LANIT Consulting
+'Purpose:Get form or Querystring values
+'This function takes two arguments:
+'		1.  frmItem as String - this is used to see if a form or QueryString item has been passed
+'				with the name frmItem
+'		2.  retVal as String - this can be considered the default value to be returned; if the function 
+'				that there has been no form or QueryString item passed by the name frmItem , then it returns
+'				the retValue
+	If Request.Form(frmItem) <> "" Then
+		GetVal = Request.Form(frmItem)
+	ElseIf Request.QueryString(frmItem) <> "" Then
+		GetVal = Request.QueryString(frmItem)
+	Else
+		GetVal = retVal
+	End If
+
+End Function
+
+
+Public Function GetSelected(comVal1, comVal2)
+'Author: Chris Ellingsworth
+'(c) LANIT Consulting
+'Purpose: Simple Dropdown list persistent select
+	If comVal1 = comVal2 Then
+		GetSelected = "selected"
+	Else
+		GetSelected = ""
+	End If
+
+
+End Function
+
+Public Sub UpdateRec (Table, IDName, IDVal, cnn)
+'Update the Records From A Page
+'Any field starting with an "_" will not be updated
+	Set rs = Server.CreateObject ("ADODB.Recordset")
+	rs.Open "Select * From " & Table & " Where " & IDName & "=" & IDVal, cnnMain, 3, 3
+		If rs.EOF Then
+			rs.AddNew
+		End If
+		For each Item in Request.Form
+			If Left(Item, 1) <> "_" Then
+				If Request.Form(Item) <> "" Then
+					Response.Write Item
+					rs(Item) = Request.Form(Item)
+				Else
+					rs(Item) = Null
+				End If
+			End If
+		Next		
+	rs.Update
+	rs.Close
+End Sub
+
+Public Sub DeleteRec (Table, cnn)
+'If there is a request to delete, delete the record.
+'Id of record must be first field
+	Set rs = Server.CreateObject ("ADODB.Recordset")
+	rs.Open Table, cnn, 3, 3
+		Do While Not rs.EOF
+			If Request.Form("Delete" & rs(0)) Then
+				rs.Delete
+			End If
+		rs.MoveNext
+		Loop
+	rs.Close
+End Sub	
+
+
+%>

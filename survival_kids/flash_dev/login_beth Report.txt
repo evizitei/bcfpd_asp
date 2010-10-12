@@ -1,0 +1,175 @@
+Movie Report
+-------------
+FrameFrame #    Frame Bytes    Total Bytes    Page
+------------    -----------    -----------    ---------------
+    1         39544          39544        Start
+    2         10849          50393          2
+    3          3907          54300          3
+    4          3515          57815          4
+    5           172          57987          5
+    6          1132          59119          6
+    7        109346         168465        Lesson
+
+Page                       Shape Bytes    Text Bytes
+-----------------------    -----------    ----------
+Start                             0           597
+Lesson                            0             0
+
+Page                       Symbol Bytes    Text Bytes
+-----------------------    ------------    ----------
+Samae Click                      45           123
+Failed Login: Button           1482           121
+Failed Login                      0             0
+Container: General                0             0
+Print Badge                      39            97
+Badge: Container                  0             0
+Container: Next Button            0             0
+Container: Next Button2           0             0
+Badge: Print Container            0           157
+Button: Arrow Fade              106             0
+Music_Off                         0            72
+Music_1                           0            62
+Music_2                           0            62
+Music_3                          36            62
+Question: Back                    0             0
+Radio Button: Button             89             0
+Button: Arrow                     0             0
+Main Sound Movie                113            40
+User Passed: Main              3517            68
+Registration Success              0           348
+Print                           358            57
+Comm: Server                      0            81
+LoadVariables Movie               0           774
+Button Graphic                    0             0
+Text Stuff                        0             0
+Question                          0           160
+Intro Text                        0           843
+Orang Circles                   266             0
+LoadBarFill                      94             0
+LoadBarFill                      54             0
+LoadBarFrame                     40             0
+Loading Anim                     84           269
+Main Loader                       0           161
+Radio Buttons Clip                0             0
+Container: Lesson                 0             0
+Transition_Anim                   0             0
+Square                           37             0
+Next Down                         0             0
+Next_Anim                         0             0
+Next                              0             0
+Ques1                             0             0
+Transition Main                   0             0
+Title                          2837             0
+Loading                           0             0
+circle                            0             0
+Radio Button                      0            79
+Lesson Loader                  2911           301
+Background                     1646             0
+LoginScreens                      0             0
+Login                           405            38
+Start                           195            39
+Next Button                     514            64
+New User                        138           104
+Sign Up                         650            44
+Colors                            0             0
+Symbol 8                          0             0
+Symbol 4                          0             0
+Medical Services Logo             0             0
+FEMA Symbol                       0             0
+Symbol 1                          0             0
+Teaching Life Skills              0             0
+Heros                             0             0
+firehero 1                        0             0
+rookie1                        3430             0
+firehero 2                        0             0
+#2                             7709             0
+firehero 3                        0             0
+#3                             6004             0
+visor                             0             0
+visorplate                        0             0
+firehero 4                     8526             0
+firehero 5                        0             0
+#6                             8564             0
+firehero 6                        0             0
+#5                             9675             0
+firehero 7                        0             0
+#7                             8342             0
+firehero 8                        0             0
+#8                            10584             0
+Badge7: ass_chief_badge           0             0
+gold_badge                     2868             0
+excelsior                      1314             0
+resue squad                       0             0
+assistant_cheif                 283             0
+Symbol 30                        63             0
+Symbol 31                       103             0
+Symbol 32                         0             0
+Symbol 33                        51             0
+star                             59             0
+Badge6: batt_chief_badge          0             0
+battalion                       487             0
+Symbol 35                        63             0
+Symbol 36                        52             0
+Symbol 37                        41             0
+Badge3: engineer_badge            0             0
+silver_badge                   4858             0
+engineer                        202             0
+Symbol 42                        64             0
+Symbol 43                        57             0
+Badge5: fire_captain_badge        0             0
+firecaptian                     421             0
+Symbol 39                        41             0
+Symbol 40                        64             0
+Badge4: fire_lieutenant_badge        0             0
+fire_lieutenant                 253             0
+Symbol 54                         0             0
+Symbol 55                        61             0
+Symbol 56                        51             0
+Symbol 57                        57             0
+Badge8: firechief_badge           0             0
+fire_cheif                      210             0
+Symbol 45                        56             0
+Symbol 46                        41             0
+Symbol 47                        62             0
+Badge2: firefighter_badge         0             0
+firefighter                     179             0
+Symbol 49                         0             0
+Symbol 50                         0             0
+Symbol 51                        85             0
+Symbol 52                        62             0
+Badge1: rookie_badge              0             0
+rookie                          212             0
+Symbol 59                        92             0
+circe                             0             0
+dep_cheif                         0             0
+trumpet2                        682             0
+engineer1                      1797             0
+engineer2                      5543             0
+firefighter                    1576             0
+trumpet                         673             0
+lieutenant                        0             0
+ass_chief                         0             0
+bat_chief                         0             0
+captain                         293             0
+chief                             0             0
+
+Tweened Shapes: 184 bytes
+
+Event Sounds: 22KHz Stereo 4 bit ADPCM
+
+Sound name                 Bytes        Format    
+-----------------------    ---------    ----------
+SM054.WAV                    6471        22KHz Stereo 4 bit ADPCM
+CM012.WAV                    6887        22KHz Stereo 4 bit ADPCM
+CM009.WAV                    4855        22KHz Stereo 4 bit ADPCM
+CM017.WAV                    6715        22KHz Stereo 4 bit ADPCM
+
+
+Sound name                 Bytes        Format    
+-----------------------    ---------    ----------
+Wingdings 2                   219        6
+Adelaide Bold                  23        
+Verdana Bold                  774        agilnorst
+Arial                        5973         !"'(),-./0123456789:;?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+Adelaide                     2804         !123CHLMOPSTacdefghiklmnoqrstuvwx
+Arial Bold                   5986         !"%'(),-./0123456789:;?ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz

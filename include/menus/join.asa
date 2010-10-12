@@ -1,0 +1,76 @@
+<table cellspacing="0" cellpadding="0" height="100%" border="0" bordercolor="orange">
+	<tr>
+		<td colspan="2" align="center" height="16" width="584">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" bordercolor="orange">
+				<tr>
+<%				if MyBrowser = "Firefox" or MyBrowser = "Netscape" then %>
+					<td align="center"  width=20%><A HREF="/joinbcfpd/from_the_chief/" ><small><b>From the Chief</small></b></A></td>
+					<td align="center" onMouseover="Display('Positions', 385, 112)"  width=20%><a href=""><small><b>Positions Available</b></small></a></td>
+					<td align="center"  width=20%><A HREF="/joinbcfpd/faq/" ><small><b>FAQ</b></small></A></td>
+					<td align="center" onMouseover="Display('PositionTypes', 700, 112)"  width=20%><a href=""><small><b>Join Our Team</b></small></a></td>
+					<td align="center"  width=20%><A HREF="/joinbcfpd/FFS/"><small><b>Student FFS</b></small></A></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="584">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="Div1" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+						
+				
+					<div id='Positions' OnMouseOver="Display('Positions')" OnMouseOut="Hide('Positions')" CLASS="menubox">
+					    <A CLASS='menutext'  HREF='/joinbcfpd/volunteer/'>&nbsp;&nbsp;Volunteer Opportunities</A>&nbsp;&nbsp;<BR>
+					    <A CLASS='menutext'  HREF='/joinbcfpd/employment/'>&nbsp;&nbsp;Career Opportunities</A>&nbsp;&nbsp;<BR>
+					</div>
+					<div id='PositionTypes' OnMouseOver="Display('PositionTypes')" OnMouseOut="Hide('PositionTypes')" CLASS="menubox">
+					    <A CLASS='menutext'  HREF='/joinbcfpd/bcfpdpositions/'>&nbsp;&nbsp;BCFPD Positions</A>&nbsp;&nbsp;<BR>
+					    <A CLASS='menutext'  HREF='/joinbcfpd/motf1positions/'>&nbsp;&nbsp;MO-TF1 Positions</A>&nbsp;&nbsp;<BR>
+					</div>
+
+<%else%>
+				
+					<td align="left" width=20%><img SRC="/images/spacer.gif" border="0" width="5" height="1"><A HREF="/joinbcfpd/from_the_chief/" ><small><b>From the Chief</A></small></b></td>
+					<td align="center"  width=20% onMouseover="Display('Positions', 272, 118)"><img SRC="/images/spacer.gif" border="0" width="5" height="1"><a href=""><small><b>Positions Available</a></b></small></td>
+					<td align="center"  width=20%><A HREF="/joinbcfpd/faq/" ><small><b>FAQ</b></small></A></td>
+					<td align="center"  width=20% onMouseover="Display('PositionTypes', 500, 118)"><img SRC="/images/spacer.gif" border="0" width="5" height="1"><a href=""><small><b>Join Our Team</a></b></small></td>
+					<td align="center"  width=20%><A HREF="/joinbcfpd/FFS/"><small><b>Student FFS</b></small></A></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" height="7"><img SRC="/images/Dotted_spacer.gif" border="0" width="584" height="7"></td>
+	</tr>
+	<tr>
+		<td colspan="2" valign="top" bgcolor="white" height="450" width="100%">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%">
+				<tr>
+					<td>
+					<div ID="StartMenu" STYLE="display:none; position:absolute;"></div>
+
+				<script TYPE="text/javascript">
+					var AnimatedMenu = StartMenu;
+				</script>
+				<div ID="Positions" onMouseover="keepMenu();" CLASS="menubox">
+					<A CLASS='menutext'  HREF='/joinbcfpd/volunteer/'>&nbsp;&nbsp;Volunteer Opportunities</A>&nbsp;&nbsp;<BR>
+					<A CLASS='menutext'  HREF='/joinbcfpd/employment/'>&nbsp;&nbsp;Career Opportunities</A>&nbsp;&nbsp;<BR>
+				</div>
+				<div ID="PositionTypes" onMouseover="keepMenu();" CLASS="menubox">
+					<A CLASS='menutext'  HREF='/joinbcfpd/bcfpdpositions/'>&nbsp;&nbsp;BCFPD Positions</A>&nbsp;&nbsp;<BR>
+					<A CLASS='menutext'  HREF='/joinbcfpd/motf1positions/'>&nbsp;&nbsp;MO-TF1 Positions</A>&nbsp;&nbsp;<BR>
+				</div>
+
+<%	end if %>
+
+
+

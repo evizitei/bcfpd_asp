@@ -1,0 +1,304 @@
+body
+{
+	font-family: "trebuchet ms", verdana, helvetica, arial, sans-serif;
+	margin: 0px;
+	padding: 0px;
+	color: #000;
+	text-align: center;
+	background-color: #505050;
+}
+
+body, p, td, th, ol, ul, input, select, option, textarea
+{
+	font-size: 12px;
+	line-height: 15px;
+}
+
+blockquote
+{
+	color: #333333;
+	line-height: 13px;
+	margin: 15px 25px;
+}
+
+blockquote p { line-height: 13px; }
+
+h1, h2, h3, h4, h5, h6
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+
+h1
+{
+	font-size: 18px;
+	font-weight: normal;
+	padding-bottom: 3px;
+	color: #ffffff;
+	margin: 5px;
+}
+
+h2
+{
+	font-size: 18px;
+	font-weight: normal;
+	padding-bottom: 3px;
+	margin: 10px 0px 10px 0px;
+}
+
+h3 { font-size: 14px; }
+h4 { font-size: 13px; }
+h5, h6 { font-size: 12px; }
+p { margin-top: 10px; }
+hr { display: none; }
+
+
+div.hr
+{
+	clear: both;
+	border-bottom: 1px solid #999;
+	margin: 10px 0;
+}
+
+#container
+{
+	width: 742px;
+	border: 1px solid #000;
+	margin: 20px auto;
+	background-color: #fff;
+	overflow: visible;
+	voice-family: "\"}\"";
+	voice-family: inherit;
+	width: 740px;
+}
+html>body #container { width: 740px; }
+
+#header
+{
+	text-align: left;
+	background-color: #000000;
+	height: 30px;
+}
+
+#nav1
+{
+	float:left;
+	width: 100px;
+}
+
+#nav2
+{
+	text-align: right;
+	width: 600px;
+}
+
+#menu
+{
+	border-bottom: 1px solid #000;
+	border-top: 1px solid #000;
+	padding-top: 2px;
+	text-align: right;
+	background-color: #cc6600;
+}
+
+
+#menu ul
+{
+	font-size: 12px;
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+}
+
+#menu li
+{
+	display: inline;
+	list-style: none;
+	padding: 0px 15px;
+}
+
+#menu a
+{
+	color: #ffffcc;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#menu a:hover
+{
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+#content
+{
+	padding: 20px;
+	text-align: left;
+	line-height: 15px;
+}
+
+
+#column1
+{
+	float: right;
+	width: 700px;
+	background-color: #fff;
+}
+
+#column2
+{
+	font-size: 11px;
+	float: left;
+	width: 160px;
+	padding: 10px;
+	background-color: #ffffcc;
+	margin-bottom: 10px;
+	border: 1px solid #000;
+}
+html>body #column2 { width: 150px; }
+
+#column2 h3
+{
+	border-bottom: 1px solid #000;
+	margin-bottom: 3px;
+	font-weight: bold;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+#column2 h4
+{
+	font-size: 11px;
+	text-transform: uppercase;
+}
+
+#column2 p
+{
+	font-size: 11px;
+	margin: 0 0 20px 0;
+}
+
+#column2 ul
+{
+	list-style-type: none;
+	margin: 0px 0px 20px 0px;
+	padding: 0px;
+	font-size: 11px;
+}
+
+#column2 blockquote
+{
+	color: #333300;
+	line-height: 13px;
+	margin: 15px 10px;
+}
+
+#column3
+{
+	font-size: 11px;
+	float: right;
+	width: 180px;
+	padding: 0px;
+	background-color: #ffffcc;
+	margin-bottom: 20px;
+	border: 1px solid #000;
+}
+html>body #column3 { width: 180px; }
+
+
+#footer
+{
+	clear: both;
+	margin: 20px 20px 0px 20px;
+	padding: 8px 0px 15px 0px;
+	border-top: 1px solid #000;
+	text-align: left;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#list li, ul, ol {
+	border-left:0px solid #cccccc; border-right:0px solid #cccccc; border-top:0px solid #cccccc; border-bottom:0px solid #cccccc; float: left;
+	position: flow;
+	width: 100%;
+	text-align: left;
+	cursor: default;
+	background-color: transparent;
+	
+}
+
+
+/*drop-down styles*/
+#nav a {
+	font-weight: bold;
+	color: #333333;
+}
+
+#nav a {
+	text-decoration: none;
+}
+
+#nav li li a {
+	display: block;
+	font-weight: normal;
+	color: #333333;
+	padding: 0.2em 10px;
+}
+
+#nav li li a:hover {
+	border-left:5px solid #cccccc; border-right:5px solid #cccccc; border-top:0px solid #cccccc; border-bottom:0px solid #cccccc; padding-left:5px; padding-right:5px; padding-top:0.2em; padding-bottom:0.2em
+}
+
+li {
+	border-left:0px solid #cccccc; border-right:0px solid #cccccc; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; float: left;
+	position: relative;
+	width: 14em;
+	text-align: center;
+	cursor: default;
+	background-color: transparent;
+	
+}
+
+li#first {
+	border-left-width: 1em;
+}
+
+li#last {
+	border-right-width: 1em;
+}
+
+li ul {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+
+	font-weight: normal;
+	background-color: red;
+	border-right: 1px solid #blue; padding-left:0; padding-right:0; padding-top:0.5em; padding-bottom:1em
+}
+
+li>ul {
+	top: auto;
+	left: auto;
+}
+
+li li {
+	display: block;
+	float: none;
+	background-color: red;
+	border: 0px none;
+}
+
+li:hover ul, li.over ul {
+	display: block;
+}
+
+hr {
+	display: none;
+}
